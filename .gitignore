@@ -3,4 +3,5 @@
 *.swo
 
 data/
+*.log
 
