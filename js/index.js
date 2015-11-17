@@ -76,7 +76,62 @@ var createPartners = function(partners) {
     return result;
 }
 
+/**
+ * 排行榜组件
+ */
+var createRanks = function(ranks) {
+    var ranking = [];
+
+    ranks.forEach(function(rank, index) {
+        var cards = rank.details.cards;
+        var tip = rank.details.tip;
+        var detail = [];
+
+        cards.forEach(function(card) {
+            detail.push(
+                '<li class="li2">' +
+                    '<img class="logo" src="' + card.logo + '" alt="" />' +
+                    '<span>' + card.desc + '</span>' +
+                '</li>'
+            ); 
+        });
+
+        ranking.push(
+            '<div class="div">' +
+                '<li class="li" style="background-image: url(' + rank.background + ')">' +
+                    '<p class="num">' + ++index  + '</p>' +
+                    '<h3 class="name">' + rank.keyword +
+                        '<div class="shape"></div>' +
+                    '</h3>' +
+                    '<p class="p1">' + rank.statistics + '</p>' +
+                '</li>' +
+                '<div class="sublist">' +
+                    '<ul class="list">' +
+                        detail.join('') +
+                    '</ul>' +
+                    '<p class="con">' + tip + '</p>' +
+                '</div>' +
+            '</div>'
+        ); 
+
+        detail = [];
+    });
+    
+    var result = ranking.join('');
+    return result;
+}
+
+
 $(function() {
+    // 排行榜数据配置
+    $.get('/api/rank', function(data) {
+        var navigation = data.data.navigation;
+        var ranks = data.data.ranks;
+    
+        $('.page7 .bar').append(createNavigator(navigation));
+        $('.page7 .list3').append(createRanks(ranks))
+    });
+
     // 摘要页数据配置
     $.get('/api/overview', function(data) {
         var details = data.data.details;
