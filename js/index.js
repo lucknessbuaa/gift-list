@@ -203,7 +203,7 @@ var createRanks = function(ranks) {
     
     var result = ranking.join('');
     return result;
-}
+};
 
 
 $(function() {
