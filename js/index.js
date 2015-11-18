@@ -150,6 +150,17 @@ var createPartners = function(partners) {
 }
 
 /**
+ * 长文章页logo组件 
+ */
+var createSymbol = function(symbol) {
+    var result = (
+        '<img src="' + symbol.logo + '" alt=""/>' +
+        '<p>' + symbol.desc + '</p>'  
+    ); 
+    return result;
+}
+
+/**
  * 排行榜组件
  */
 var createRanks = function(ranks) {
@@ -207,8 +218,10 @@ $(function() {
     $.get('/api/article', function(data) {
         var navigation = data.data.navigation;
         var download = data.data.download;
+        var symbol = data.data.symbol;
 
         $('.page1 .bar').append(createNavigator(navigation));
+        $('.wdj-logo').append(createSymbol(symbol));
         $('.page1 .download').append(createDownload(download));
     });
 
