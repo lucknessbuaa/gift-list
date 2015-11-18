@@ -3,6 +3,44 @@
  */
 
 /**
+ * 封面组件
+ */
+var createCover = function(cover) {
+    cover.overview.push(cover.rank);
+
+    var largeCover = cover.article;
+    var smallCover = cover.overview; 
+
+    var topHalf = '<div class="row row1 index1">' +
+                        '<a class="link link1 external" data-type="1" href="javascript:;"></a>' +
+                        '<h2>' + largeCover.titleOne + '</h2>' +
+                        '<p>' + largeCover.titleTwo + '</p>' +
+                        '<div class="overlay"></div>' +
+                        '<img class="bg" src="' + largeCover.background + '" alt="" />' +
+                   '</div>';
+    var bottomHalf = [];
+    smallCover.forEach(function(item, index) {
+        var left = index % 2;
+        var number = index + 2;
+        if (left === 0) {
+            bottomHalf.push('<div class="row row2">');
+        }
+        bottomHalf.push(
+            '<div>' +
+                '<a class="link link' + number +' external" data-type="' + number + '" href="javascript:;"></a>' +
+                '<h2>' + item.title + '</h2>' +
+                '<div class="overlay"></div>' +
+                '<img class="bg" src="' + item.background + '" alt="" />' +
+            '</div>'
+        );
+        if (left) {
+            bottomHalf.push('</div>');
+        }
+    });
+    return topHalf + bottomHalf.join('');
+}
+
+/**
  * 1. 详情页综述组件 createReview
  * 2. 详情页列表组件 createCards
  */
@@ -123,13 +161,22 @@ var createRanks = function(ranks) {
 
 
 $(function() {
+    // 封面数据配置
+    $.get('/api/cover', function(data) {
+        var cover = data.data;
+
+        $('.index .content').append(createCover(cover));
+    });
+
     // 排行榜数据配置
     $.get('/api/rank', function(data) {
         var navigation = data.data.navigation;
         var ranks = data.data.ranks;
+        var download = data.data.download;
     
         $('.page7 .bar').append(createNavigator(navigation));
         $('.page7 .list3').append(createRanks(ranks))
+        $('.page7 .download').append(createDownload(download));
     });
 
     // 摘要页数据配置
