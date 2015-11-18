@@ -6,14 +6,13 @@ body { font-family: "Microsoft Yahei", "Helvetica Neue", Helvetica; text-size-ad
 .row { position: relative; margin: 0; overflow: hidden; color: #fff;}
 .row1 { height: 50%;}
 .row2 { height: 16.66%;}
-.row3 { height: 18%;}
-.row2 > div, .row3 > div { position: relative; float: left; width: 50%; height: 100%;}
+.row2 > div { position: relative; float: left; width: 50%; height: 100%;}
 .row .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0, .3); z-index: 2;}
 .row .bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%;}
 
-.row2 div h2, .row3 div h2 { position: absolute; top: 50%; left: 50%; -webkit-transform: translate(-50%, -50%);transform: translate(-50%, -50%); width: 100%; text-align: center; color: #fff; font-size: 0.6rem; font-weight: 400; z-index: 10;}
+.row2 div h2 { position: absolute; top: 50%; left: 50%; -webkit-transform: translate(-50%, -50%);transform: translate(-50%, -50%); width: 100%; text-align: center; color: #fff; font-size: 0.6rem; font-weight: 400; z-index: 10;}
 .row1 .link { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: block; z-index: 15;}
-.row2 div .link, .row3 div .link { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: block; z-index: 15;}
+.row2 div .link { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: block; z-index: 15;}
 
 .index1 h2 { position: absolute; bottom: 2.5rem; left: 5%; font-size: 0.9rem; z-index: 4;}
 .index1 p { position: absolute; bottom: 1rem; left: 5%; font-size: 0.6rem; z-index: 4;}
