@@ -72,7 +72,6 @@ body { font-family: "Microsoft Yahei", "Helvetica Neue", Helvetica; text-size-ad
 .partners .partners_logs img { width: 6rem;height: 2.1rem;}
 
 /* 排行榜 */
-
 .page-rank .head { padding: 1.2rem 0; color: #000; text-align: center; font-size: 0.625rem;}
 
 .list3 .li { width: 100%; height: 4.75rem; background-position: top center; -webkit-background-size: cover; background-size: cover; overflow: hidden;}
@@ -81,9 +80,19 @@ body { font-family: "Microsoft Yahei", "Helvetica Neue", Helvetica; text-size-ad
 .list3 .li .shape { width: 0; height: 0; display: inline-block; margin-left: 0.5rem; border-top: 0.2rem solid transparent; border-left: 0.4rem solid #fff; border-bottom: 0.2rem solid transparent;}
 .list3 .li .p1 { margin: 0.2rem 0 0; text-align: center; color: #fff; font-size: 0.5rem; font-weight: 200;}
 .list3 .li .p1 span { padding: 0 0.5rem;}
-.sublist { padding: 1.25rem 2.375rem;}
+.sublist { padding: 1.25rem 2.375rem; display: none;}
 .sublist .li2 { width: 100%; height: 2.3rem; margin-bottom: 0.55rem; padding: 0.4rem 0.75rem; color: #000; font-size: 0.5rem; background-color: #f5f5f5; list-style: none;}
 .sublist .li2 .logo { float: left; width: 1.5rem; height: 1.5rem;}
 .sublist .li2 span { float: left; width: 8.25rem; height: 1.5rem; line-height: 1.5rem; overflow: hidden;}
 .sublist .con { line-height: 0.9rem; color: #aaaaaa; text-align: center; font-size: 0.5rem;}
 .sublist .con span { color: #24aa42; padding: 0 0.5rem;}
+
+/* 推荐应用 */
+.slide { padding: 1.25rem; width: 100%; height: 15.75rem; background-image: url('../images/slide-bg.jpg'); -webkit-background-size: cover; background-size: cover; background-position: top center;}
+.slide h2 { width: 70%; margin: 0 auto 1rem; text-align: center; color: #fff; font-size: 0.7rem; font-weight: 600;}
+.swiper-container .swiper-slide { display: -webkit-box; display: -ms-flexbox; display: -webkit-flex; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; -webkit-justify-content: center; justify-content: center; -webkit-box-align: center; -ms-flex-align: center; height: 11rem;}
+.swiper-slide .con { width: 100%; height: 9rem; background-color: #1468d3;}
+.swiper-slide .logo { width: 2.65rem; height: 2.65rem; display: block; margin: 1.75rem auto 1.25rem;}
+.swiper-slide h3 { width: 100%; height: 0.9rem; line-height: 0.9rem; color: #fff; text-align: center; font-size: 0.6rem; font-weight: 600; overflow: hidden;}
+.swiper-slide p { color: #fff; text-align: center; font-size: 0.5rem; margin-top: 0.6rem; font-weight: normal;}
+.swiper-slide .plus { width: 2.5rem; height: 0.75rem; line-height: 0.75rem; margin: 0.85rem auto 0; -webkit-border-radius: 0.25rem; border-radius: 0.25rem; color: #fff; text-align: center; background-color: #24aa42;}
