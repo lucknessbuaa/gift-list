@@ -1,7 +1,7 @@
 const towards = {
     left: 1,
     right: 2
-}
+};
 
 function pageMove(tw, now, last) {
     var lastPage = '.page' + last;
@@ -73,7 +73,7 @@ var createCover = function(cover) {
         }
     });
     return topHalf + bottomHalf.join('');
-}
+};
 
 /**
  * 1. 详情页综述组件 createReview
@@ -131,7 +131,7 @@ var createNavigator = function(nav) {
                  '<h1>' + nav.theme + '</h1>' +
                  '<a class="share" href="javascript:;">分享</a>';
     return result;
-}
+};
 
 /**
  * 合作伙伴组件
@@ -147,7 +147,7 @@ var createPartners = function(partners) {
                     images.join('') +
                  '</div>';
     return result;
-}
+};
 
 /**
  * 长文章页logo组件 
@@ -158,7 +158,7 @@ var createSymbol = function(symbol) {
         '<p>' + symbol.desc + '</p>'  
     ); 
     return result;
-}
+};
 
 /**
  * 排行榜组件
@@ -203,19 +203,19 @@ var createRanks = function(ranks) {
     
     var result = ranking.join('');
     return result;
-}
+};
 
 
 $(function() {
     // 封面数据配置
-    $.get('/api/cover', function(data) {
+    $.get('http://mars.tomasran.me/api/cover', function(data) {
         var cover = data.data;
 
         $('.index .content').append(createCover(cover));
     });
 
     // 长文章数据配置
-    $.get('/api/article', function(data) {
+    $.get('http://mars.tomasran.me/api/article', function(data) {
         var navigation = data.data.navigation;
         var download = data.data.download;
         var symbol = data.data.symbol;
@@ -226,7 +226,7 @@ $(function() {
     });
 
     // 排行榜数据配置
-    $.get('/api/rank', function(data) {
+    $.get('http://mars.tomasran.me/api/rank', function(data) {
         var navigation = data.data.navigation;
         var ranks = data.data.ranks;
         var download = data.data.download;
@@ -237,7 +237,7 @@ $(function() {
     });
 
     // 摘要页数据配置
-    $.get('/api/overview', function(data) {
+    $.get('http://mars.tomasran.me/api/overview', function(data) {
         var details = data.data.details;
 
         details.forEach(function(detail, index) {
@@ -255,7 +255,7 @@ $(function() {
     });
 
     //合作伙伴配置
-    $.get('/api/partners', function(data) {
+    $.get('http://mars.tomasran.me/api/partners', function(data) {
         var partners = data.data.partners; 
 
         $('.partners').append(createPartners(partners));
@@ -271,6 +271,11 @@ $(function() {
             $('.page' + index).removeClass('page-moveFromBottom');
         },600);
         $('.page-detail .content').scrollTop(0);
+
+        $(".swiper-container").swiper({
+            slidesPerView: 3,
+            spaceBetween: 10
+        });
     });
 
     //变量
@@ -315,6 +320,16 @@ $(function() {
         $('.page-detail .content').scrollTop(0);
     });
 
+    //排行榜 手风琴
+    $('.list3 > div').live('tap', function(){
+        var child = $(this).find('.sublist');
+        if(child.css('display') == 'none'){
+            child.show();
+        }else{
+           child.hide();
+        }
+    });
+
     //监听滚动
     /*$('.content').on('scroll',function(){
         var num = $(this).scrollTop();
@@ -324,6 +339,5 @@ $(function() {
             $('.bar-nav').css({'position':'relative'});
         }
     });*/
-
     $.init();
 });
