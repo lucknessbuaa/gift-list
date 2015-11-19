@@ -113,7 +113,7 @@ var createDownload = function(download) {
     var result = '<div class="download_desc">' + download.desc + '</div>' +
                  '<div class="logo">' +
                     '<img class="logo_image" src="images/logo3.png"/>' +
-                    '<div class="logo_desc">豌豆荚一览下载</div>' +
+                    '<div class="logo_desc">豌豆荚一览</div>' +
                  '</div>' +
                  '<div class="download_button">下载</div>' +
                  '<div class="app_image">' +
