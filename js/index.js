@@ -160,6 +160,74 @@ var createSymbol = function(symbol) {
     return result;
 };
 
+/*
+ * 长文章应用推荐组件
+ */
+var createApps = function(apps) {
+    var result = [];
+    result.push(
+        '<h2>' + apps.title + '</h2>' +
+        '<div class="swiper-container">' +
+            '<div class="swiper-wrapper">'
+    );
+    apps.apps.forEach(function(app, index) {
+        result.push(
+            '<div class="swiper-slide">' +
+                '<div class="con" style="background-color:' + app.backgroundColor +';">' +
+                    '<img class="logo" src="' + app.logo + '" alt=""/>' +
+                    '<h3>' + app.name + '</h3>' +
+                    '<p>' + app.desc + '</p>' +
+                    '<div class="plus">+</div>' +
+                '</div>' +
+            '</div>'
+        );
+    });
+    result.push(
+            '</div>' +
+        '</div>'
+    );
+    return result.join('');
+}
+
+/*
+ * 长文章段落组件
+ */
+var createParagraphs = function(paras) {
+    var result = [];
+    paras.forEach(function(para) {
+        result.push(createSingleParagraph(para));
+    });
+    return result.join('');
+}
+
+var createSingleParagraph = function(para) {
+    var content = para.content;
+    var app = para.app;    
+    var result = [];
+
+    result.push('<li>');
+    content.forEach(function(cell, index) {
+        if (cell.title) {
+            result.push('<h3>' + cell.title + '</h3>');
+        }
+        if (cell.image) {
+            result.push('<img src="' + cell.image + '" alt=""/>');
+        }
+        if (cell.text) {
+            result.push('<div class="con"><p>' + cell.text + '</p></div>');
+        }
+    });
+    result.push(
+            '<div class="name">' +
+                '<img src="' + app.logo + '" alt=""/>' +
+                '<span>' + app.name + '</span>' +
+            '</div>' +
+        '</li>' 
+    );
+
+    return result.join('');
+}
+
 /**
  * 排行榜组件
  */
@@ -217,12 +285,16 @@ $(function() {
     // 长文章数据配置
     $.get('http://mars.tomasran.me/api/article', function(data) {
         var navigation = data.data.navigation;
+        var paragraphs = data.data.paras;
         var download = data.data.download;
         var symbol = data.data.symbol;
+        var apps = data.data.apps;
 
         $('.page1 .bar').append(createNavigator(navigation));
         $('.wdj-logo').append(createSymbol(symbol));
+        $('.page1 .list1').append(createParagraphs(paragraphs));
         $('.page1 .download').append(createDownload(download));
+        $('.page1 .slide').append(createApps(apps));
     });
 
     // 排行榜数据配置
