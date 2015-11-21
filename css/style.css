@@ -37,7 +37,7 @@ body { font-family: '方正兰亭细黑'; text-size-adjust: none;}
 .list1 h3  { width: 100%; height: 1rem; line-height: 1rem; margin-top: 1.5rem; text-align: center; color: #333; font-size: 0.9rem; font-weight: 600; font-family: '方正兰亭中黑';}
 .list1 .con { width: 13.6rem; margin: 0.8rem auto 1.6rem;}
 .list1 .con p { line-height: 1.125rem; margin-bottom: 0.5rem; color: #858585; font-size: 0.75rem; text-align: justify;}
-.list1 .name { width: auto; height: 1.5rem; line-height: 1.5rem; color: #b5b5b5; font-size: 0.5rem; margin: 0 auto; text-align: center; overflow: hidden;}
+.list1 .name { width: auto; height: 1.5rem; line-height: 1.5rem; color: #b5b5b5; font-size: 0.5rem; margin: 1.5rem auto 0; text-align: center; overflow: hidden;}
 .list1 .name .logo { width: 1.5rem; height: 1.5rem; vertical-align: -25%;}
 .list1 .name span { font-size: 0.75rem;}
 .list1 .img { width: 100%; height: auto; margin-top: 1.6rem;}
