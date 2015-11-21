@@ -116,7 +116,9 @@
             '<img class="logo_image" src="images/logo3.png"/>' +
             '<div class="logo_desc">豌豆荚一览</div>' +
             '</div>' +
+            '<a class="external" href="' + download.url +'">' +
             '<div class="download_button">下载</div>' +
+            '</a>' +
             '<div class="app_image">' +
             '<img src="'+ download.image + '"/>' +
             '</div>';
@@ -375,11 +377,75 @@
             $('.partners').append(createPartners(partners));
         });
 
-
+        // 分享数据配置 
         $.get('http://mars.tomasran.me/api/share', function(data) {
-                
-        });
+            var wbConfig = data.data.weibo;         
+            var wechatTimelineConfig = data.data.wechatTimelineConfig;
+            var wechatFriendConfig = data.data.wechatFriendConfig;
+
+            var weibo = {
+                element: '.share-weibo',
+                desc: wbConfig.desc,
+                link: wbConfig.link,
+                shortLink: wbConfig.shortLink,
+                imgUrl: wbConfig.imgUrl,
+                successCallback: function() {}
+            };
+
+            var wechatFriend = {
+                element: '.share-wechat-friend',
+                title: '朋友',
+                desc: '朋友分享',
+                link: location.href.split('#')[0],
+                imgUrl: 'http://i5.tietuku.com/ba62662f544d0bb2.jpg',
+                tips: function () {
+                    var tipsImg = 'http://t.wdjcdn.com/upload/mkt-campaign/designaward/208/wechat-share-tips.png';
+                    $('body').append(createWechatShareTip(tipsImg));
+                },
+                qrcode: function () {
+                    $('body').append(createQRcode(wechatFriend.link));
+                },
+                successCallback: function() {}
+            };
     
+            var wechatTimeline = {
+                element: '.share-wechat-timeline',
+                title: '朋友圈',
+                link: location.href.split('#')[0],
+                imgUrl: 'http://i5.tietuku.com/ba62662f544d0bb2.jpg',
+                tips: function () {
+                    var tipsImg = 'http://t.wdjcdn.com/upload/mkt-campaign/designaward/208/wechat-share-tips.png';
+                    $('body').append(createWechatShareTip(tipsImg));
+                },
+                qrcode: function () {
+                    $('body').append(createQRcode(wechatTimeline.link));
+                },
+                successCallback: function() {}
+            };
+    
+            campaignTools.shareButtonSetup(weibo, wechatFriend, wechatTimeline); 
+
+            if (campaignTools.UA.inWechat) {
+                var shareTimelineObject = {
+                    title: wechatTimelineConfig.title,
+                    desc: wechatTimelineConfig.desc, 
+                    link: wechatTimelineConfig.link,
+                    imgUrl: wechatTimelineConfig.imgUrl, //配图
+                    successCallback: function() {}
+                };
+    
+                var shareFriendObject = {
+                    title: wechatFriendConfig.title,
+                    desc: wechatFriendConfig.desc,
+                    link: wechatFriendConfig.link,
+                    imgUrl: wechatFriendConfig.imgUrl, //配图
+                    successCallback: function() {}
+                };
+    
+                campaignTools.wechatWebviewShareSetup(shareTimelineObject, shareFriendObject);
+            }
+        });
+
         //查看详情
         $(document).on('click', '.link', function (e){
             var index = $(this).attr('data-type');
@@ -455,82 +521,6 @@
             }
         });
     
-        //监听滚动
-        /*$('.content').on('scroll',function(){
-            var num = $(this).scrollTop();
-            if(num >= 145){
-                $('.bar-nav').css({'position':'fixed'});
-            }else{
-                $('.bar-nav').css({'position':'relative'});
-            }
-        });*/
-    
-        // 分享部分 
-        if (campaignTools.UA.inWechat) {
-            var shareTimelineObject = {
-                title: '这是分享到朋友圈的标题',
-                desc: '这是分享到朋友圈的描述',
-                link: location.href.split('#')[0],
-                imgUrl: 'http://i5.tietuku.com/ba62662f544d0bb2.jpg', //配图
-                successCallback: function() {}
-            };
-    
-            var shareFriendObject = {
-                title: '这是分享到好友标题',
-                desc: '这是分享给好友的描述',
-                link: location.href.split('#')[0],
-                desc: '这是分享给好友的简介',
-                imgUrl: 'http://i5.tietuku.com/ba62662f544d0bb2.jpg', //配图
-                successCallback: function() {}
-            };
-    
-            campaignTools.wechatWebviewShareSetup(shareTimelineObject, shareFriendObject);
-        }
-    
-        var weibo = {
-            element: '.share-weibo',
-            desc: '微博分享',
-            link: location.href.split('#')[0],
-            shortLink: location.href.split('#')[0],
-            imgUrl: 'http://i5.tietuku.com/ba62662f544d0bb2.jpg',
-            successCallback: function() {}
-        };
-    
-        var wechatFriend = {
-            element: '.share-wechat-friend',
-            title: '朋友',
-            desc: '朋友分享',
-            link: location.href.split('#')[0],
-            imgUrl: 'http://i5.tietuku.com/ba62662f544d0bb2.jpg',
-            tips: function () {
-                var tipsImg = 'http://t.wdjcdn.com/upload/mkt-campaign/designaward/208/wechat-share-tips.png';
-                $('body').append(createWechatShareTip(tipsImg));
-            },
-            qrcode: function () {
-                $('body').append(createQRcode(wechatFriend.link));
-            },
-            successCallback: function() {}
-        };
-    
-    
-        var wechatTimeline = {
-            element: '.share-wechat-timeline',
-            title: '朋友圈',
-            link: location.href.split('#')[0],
-            imgUrl: 'http://i5.tietuku.com/ba62662f544d0bb2.jpg',
-            tips: function () {
-                var tipsImg = 'http://t.wdjcdn.com/upload/mkt-campaign/designaward/208/wechat-share-tips.png';
-                $('body').append(createWechatShareTip(tipsImg));
-            },
-            qrcode: function () {
-                $('body').append(createQRcode(wechatTimeline.link));
-            },
-            successCallback: function() {}
-        };
-    
-        campaignTools.shareButtonSetup(weibo, wechatFriend, wechatTimeline); 
-    
-    
         $('.share').live('tap', function(){
             $('.share-menu').addClass('page-moveFromBottom');
             $('.share-overlay').addClass('pageFadeIn');
@@ -542,7 +532,6 @@
             }, 600);
         });
 
-    
         $('.btn-share').live('tap', function(){
             $('.share-menu').addClass('page-moveFromBottom');
             $('.share-overlay').addClass('pageFadeIn');
