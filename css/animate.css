@@ -23,6 +23,9 @@
 /* 向右淡出 */
 .fadeIn { -webkit-animation: flash 1s ease-in-out both; animation: flash 1s ease-in-out both;}
 
+/* 淡入 */
+.pageFadeIn { -webkit-animation: flash 1s ease-in-out both; animation: flash 1s ease-in-out both;}
+
 /* 向右淡出 */
 .fadeInToRight { -webkit-animation: fadeInToRight 1.2s ease-in-out both; animation: fadeInToRight 1.2s ease-in-out both;}
 
