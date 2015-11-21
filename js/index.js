@@ -129,7 +129,7 @@ var createNavigator = function(nav) {
     var result = '<a class="btn-back external" href="javascript:;"></a>' +
                  '<p>' + nav.desc + '</p>' +
                  '<h1>' + nav.theme + '</h1>' +
-                 '<a class="share" href="javascript:;">分享</a>';
+                 '<a class="share external" href="javascript:;">分享</a>';
     return result;
 };
 
@@ -177,7 +177,6 @@ var createApps = function(apps) {
                     '<img class="logo" src="' + app.logo + '" alt=""/>' +
                     '<h3>' + app.name + '</h3>' +
                     '<p>' + app.desc + '</p>' +
-                    '<div class="plus">+</div>' +
                 '</div>' +
             '</div>'
         );
@@ -251,7 +250,7 @@ var createRanks = function(ranks) {
         ranking.push(
             '<div class="div">' +
                 '<li class="li" style="background-image: url(' + rank.background + ')">' +
-                    '<p class="num">' + ++index  + '</p>' +
+                    '<span class="num">' + ++index  + '</span>' +
                     '<h3 class="name">' + rank.keyword +
                         '<div class="shape"></div>' +
                     '</h3>' +
@@ -273,6 +272,9 @@ var createRanks = function(ranks) {
     return result;
 };
 
+if(campaignTools.UA.inPC){
+    location.href = 'http://www.qingzhui.net/demo/huoxing_pc';
+}
 
 $(function() {
     // 封面数据配置
@@ -345,8 +347,8 @@ $(function() {
         $('.page-detail .content').scrollTop(0);
 
         $(".swiper-container").swiper({
-            slidesPerView: 3,
-            spaceBetween: 10
+            slidesPerView: 'auto',
+            spaceBetween: 15
         });
     });
 
@@ -354,7 +356,7 @@ $(function() {
     var isAnimating = false;
 
     //向左
-    $('.page-detail').on('swipeLeft', function() {
+    $('.page-detail').on('swipeLeft', function(){
         if (isAnimating) return;
         var now = $(this).index();
         var last = now;
@@ -368,7 +370,7 @@ $(function() {
     });
 
     //向右
-    $('.page-detail').on('swipeRight', function () {
+    $('.page-detail').on('swipeRight', function (){
         if (isAnimating) return;
         var now = $(this).index();
         var last = now;
@@ -393,7 +395,7 @@ $(function() {
     });
 
     //排行榜 手风琴
-    $('.list3 > div').live('tap', function(){
+    $('.list3 > div').live('click', function(ev){
         var child = $(this).find('.sublist');
         if(child.css('display') == 'none'){
             $(this).find('.shape').animate({'rotateZ': '90deg'},500);
@@ -414,6 +416,38 @@ $(function() {
         }
     });*/
     $.refreshScroller();
+
+    //分享
+    $('.share').live('tap', function(){
+        alert(campaignTools.UA.inWechat);
+        if(campaignTools.UA.inWechat) {
+            var shareTimelineObject = {
+                title: '这是分享到朋友圈的标题',
+                link: '这是分享到朋友圈的链接',
+                imgUrl: 'http://www.wandoujia.com/xxx.jpg', //配图
+                successCallback: function () {
+                    alert('分享到微信朋友圈成功');
+                }
+            };
+            var shareFriendObject = {
+                title: '这是分享到好友标题',
+                link: '这是分享到好友的链接',
+                desc: '这是分享给好友的简介',
+                imgUrl: 'http://www.wandoujia.com/xxx.jpg', //配图
+                successCallback: function () {
+                    alert('分享给微信好友成功');
+                }
+            };
+
+            campaignTools.wechatWebviewShareSetup(shareTimelineObject, shareFriendObject);
+        }else{
+            var title = 'ddddddddddddd';
+            var content = 'ddddd';
+            campaignTools.runSystemShare(title, content);
+        }
+    });
+
+
 
     $.init();
 });
