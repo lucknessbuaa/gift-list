@@ -399,6 +399,10 @@
             if(child.css('display') == 'none'){
                 $(this).find('.shape').animate({'rotateZ': '90deg'},500);
                 child.show();
+                child.addClass('scaleUpCenter');
+                setTimeout(function(){
+                    child.removeClass('scaleUpCenter');
+                },600);
             }else{
                 $(this).find('.shape').animate({'rotateZ': '0'},500);
                 child.hide();
@@ -445,8 +449,6 @@
                 campaignTools.runSystemShare(title, content);
             }
         });
-
-
 
         $.init();
     });
