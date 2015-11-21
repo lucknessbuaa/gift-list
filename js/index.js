@@ -374,6 +374,11 @@
     
             $('.partners').append(createPartners(partners));
         });
+
+
+        $.get('http://mars.tomasran.me/api/share', function(data) {
+                
+        });
     
         //查看详情
         $(document).on('click', '.link', function (e){
@@ -435,8 +440,8 @@
         });
     
         //排行榜 手风琴
-        $('.list3 > div').live('click', function(ev){
-            var child = $(this).find('.sublist');
+        $('.list3 li').live('click', function(ev){
+            var child = $(this).parent().find('.sublist');
             if(child.css('display') == 'none'){
                 $(this).find('.shape').animate({'rotateZ': '90deg'},500);
                 child.show();
@@ -533,8 +538,6 @@
             $('.share-overlay').show();
             setTimeout(function(){
                 $('.share-menu').removeClass('page-moveFromBottom');
-            }, 600);
-            setTimeout(function() {
                 $('.share-overlay').removeClass('pageFadeIn');
             }, 600);
         });
@@ -547,8 +550,6 @@
             $('.share-overlay').show();
             setTimeout(function(){
                 $('.share-menu').removeClass('page-moveFromBottom');
-            }, 600);
-            setTimeout(function() {
                 $('.share-overlay').removeClass('pageFadeIn');
             }, 600);
         });
