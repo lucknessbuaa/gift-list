@@ -352,6 +352,8 @@ $(function() {
         });
     });
 
+
+
     //变量
     var isAnimating = false;
 
