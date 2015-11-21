@@ -51,10 +51,10 @@ body { font-family: '方正兰亭细黑'; text-size-adjust: none;}
 .list2 li { background-color: #fff;}
 .list2 .hd { height: 1.7rem; line-height: 1rem; margin-top: 0.4rem; padding: 0.35rem 0.9rem; border-bottom: 1px solid #f0f0f0;}
 .list2 .hd .logo { float: left; width: 1rem; height: 1rem;}
-.list2 .hd h3 { float: left; margin-left: 0.75rem; color: #333; font-size: 0.75rem; font-weight: 600; font-family: '方正兰亭中黑';}
+.list2 .hd h3 { float: left; margin-left: 0.75rem; color: #333; font-size: 0.6rem; font-weight: 600; font-family: '方正兰亭中黑';}
 .list2 .bd { padding: 1.15rem 0.9rem;}
 .list2 .bd img { width: 100%; height: auto; margin-bottom: 0.4rem;}
-.list2 .bd .h3 { line-height: 0.8rem; margin: 0 0 0.3rem 0; text-align: left; color: #333; font-size: 0.75rem; font-weight: 600;}
+.list2 .bd .h3 { line-height: 0.8rem; margin: 0 0 0.3rem 0; text-align: left; color: #333; font-size: 0.6rem; font-weight: 600;}
 .list2 .bd p { line-height: 0.975rem; margin: 0.2rem 0; color: #777; font-size: 0.65rem;}
 
 /* 下载 */
@@ -99,7 +99,7 @@ body { font-family: '方正兰亭细黑'; text-size-adjust: none;}
 .swiper-slide .plus { width: 2.5rem; height: 0.75rem; line-height: 0.75rem; margin: 0.85rem auto 0; -webkit-border-radius: 0.25rem; border-radius: 0.25rem; color: #fff; text-align: center; background-color: #24aa42;}
 
 /* 分享蒙版 */
-.share-overlay {width: 100%; height: 100%;z-index: 10000; background: rgba(0, 0, 0, 0.4); position: fixed;display: none;}
+.share-overlay {top: 0; bottom: 0; left: 0; right: 0;z-index: 10000; background: rgba(0, 0, 0, 0.4); position: fixed;display: none;}
 .share-menu {display: none; position: fixed; top: 0; right:0; bottom: 0; left: 0; z-index: 9999999;}
 .share-menu .share-buttons {padding-bottom: 0.8rem;}
 .share-menu .share-buttons .share-wechat-friend {text-align: center;}
@@ -109,7 +109,7 @@ body { font-family: '方正兰亭细黑'; text-size-adjust: none;}
 .share-menu .share-buttons .share-title{text-align: center; font-size: 0.65rem; color: #333; padding: 0.8rem 0;}
 .share-menu .share-buttons .trim {width: 33.33%;}
 .share-buttons img {width: 1.3rem; display: block; margin: 0 auto;}
-.share-buttons span{font-size: 0.55rem; color:#777;}
+.share-buttons span{line-height: 1.5rem;font-size: 0.55rem; color:#777;}
 
 .overlay {position: fixed; background: rgba(0, 0, 0, 0.6); top: 0; right: 0; left: 0; bottom: 0; z-index: 10000;}
 .qrcode {position: fixed; top: 50%; left: 50%; height: 15rem; width: 14rem; margin-top: -8rem; margin-left: -7rem; background:#fff;padding: 0.5rem; text-align: left; z-index: 10001;}
@@ -120,5 +120,5 @@ body { font-family: '方正兰亭细黑'; text-size-adjust: none;}
 .qrcode .qrcode-content .qrcode-center img {width: 7rem; height: 7rem;}
 .qrcode > .qrcode-button {position: absolute; bottom: -0.2rem; width: 100%; height: 2.2rem; background: #4caf50; left: 0; text-align: center; font-size: 0.7rem; line-height: 2.2rem; color: #fff; cursor: pointer; border: 0; border-radius: 0;}
 
-.wechat-share-tip {background: rgba(0, 0, 0, 0.6); position: fixed; z-index: 10000; width: 100%; height: 100%;}
+.wechat-share-tip {background: rgba(0, 0, 0, 0.6); position: fixed; z-index: 10000; top: 0; bottom: 0; left: 0; right: 0;}
 .wechat-share-tip img {position: fixed; width: 6rem; top: 0; right: 1.2rem;}
