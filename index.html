@@ -2,19 +2,39 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <meta name="renderer" content="webkit">
         <title>豌豆荚一览</title>
         <meta name="viewport" content="initial-scale=1, maximum-scale=1">
         <link rel="shortcut icon" href="/favicon.ico">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-        <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.5.2/css/sm.min.css">
-        <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.5.2/css/sm-extend.min.css">
+        <script class="js1" type='text/javascript' src='js/zepto.min.js' charset='utf-8'></script>
+        <script type='text/javascript' src="js/campaignSDK.min.js"></script>
+        <script>
+            if(campaignTools.UA.inPC){
+                $(function(){
+                    $('.body').show();
+                    $('.page').hide();
+                    $('.sheet1').remove();
+                    $('.js1').remove();
+                    $('.sheet').attr({'href': 'css/style_pc.css'});
+                });
+            }else{
+                $(function(){
+                    $('.body').hide();
+                    $('.js2').remove();
+                })
+            }
+        </script>
+
+        <link class="sheet1" rel="stylesheet" href="//g.alicdn.com/msui/sm/0.5.2/css/sm.min.css">
+        <link class="sheet1" rel="stylesheet" href="//g.alicdn.com/msui/sm/0.5.2/css/sm-extend.min.css">
         <link rel="stylesheet" href="css/animate.css">
-        <link rel="stylesheet" href="css/style.css?v16">
+        <link class="sheet" rel="stylesheet" href="css/style.css">
     </head>
-    <body>
+    <body id="body">
         <!-- 封面 -->
         <div class="page index">
             <a class="btn-share" href="javascript"></a>
@@ -177,11 +197,38 @@
             </div>
         </div>
 
-        <script type='text/javascript' src='js/zepto.min.js' charset='utf-8'></script>
-        <script type='text/javascript' src='js/touch-0.2.14.min.js' charset='utf-8'></script>
-        <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.5.2/js/sm.min.js' charset='utf-8'></script>
-        <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.5.2/js/sm-extend.min.js' charset='utf-8'></script>
-        <script type='text/javascript' src="js/campaignSDK.min.js"></script>
-        <script src="js/index.js?v17"></script>
+        <div class="body">
+            <ul class="wrapul">
+                <li class="anli anli1"><img src="images/banner1.jpg"></li>
+                <li class="anli anli2"><img src="images/banner2.jpg"></li>
+                <li class="anli anli3"><img src="images/banner3.jpg"></li>
+            </ul>
+            <div class="wrapdiv">
+                <div class="wrapdiv2 ">
+                    <p class="clearfix p1"><img class="left" src="images/icon.png" height="38" width="37"><span class="left">豌豆荚一览</span></p>
+                    <p class="clearfix p2">火星漫游指南</p>
+                    <p class="clearfix p3"></p>
+                    <p class="clearfix p4">THE HITCHHIKER'S GUIDE TO MARS</p>
+                    <p class="clearfix p5 ">[辐射] 废土食人考</p>
+                    <p class="clearfix p6 ">诗与哲理的 Pink Floyd</p>
+                    <p class="clearfix p7">这个世界上</p>
+                    <p class="clearfix p8">不会再有大阿哥了</p>
+                    <p class="clearfix p9">EVA 与希伯来圣经</p>
+                    <p class="clearfix p10">世界厕所日</p>
+                    <p class="clearfix p11">本月人们</p>
+                    <p class="clearfix p12">都在讨论这些事</p>
+                    <p class="pimg"><img src="images/qrcode.png" height="197" width="170"></p>
+                </div>
+            </div>
+        </div>
+
+        <script class="js1" type='text/javascript' src='js/touch-0.2.14.min.js' charset='utf-8'></script>
+        <script class="js1" type='text/javascript' src='//g.alicdn.com/msui/sm/0.5.2/js/sm.min.js' charset='utf-8'></script>
+        <script class="js1" type='text/javascript' src='//g.alicdn.com/msui/sm/0.5.2/js/sm-extend.min.js' charset='utf-8'></script>
+        <script class="js1" src="js/index.js?v17"></script>
+
+        <script class="js2" src="js/respond.min.js"></script>
+        <script class="js2" type="text/javascript" src="js/jquery.min.js"></script>
+        <script class="js2" type="text/javascript" src="js/wdj.js"></script>
     </body>
 </html>
