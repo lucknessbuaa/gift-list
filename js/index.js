@@ -394,7 +394,7 @@
         });
 
         //排行榜 手风琴
-        $('.list3 > div').live('click', function(ev){
+        $('.list3 > .div').live('click', function(ev){
             var child = $(this).find('.sublist');
             if(child.css('display') == 'none'){
                 $(this).find('.shape').animate({'rotateZ': '90deg'},500);
