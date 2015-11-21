@@ -97,3 +97,27 @@ body { font-family: '方正兰亭细黑'; text-size-adjust: none;}
 .swiper-slide h3 { width: 100%; height: 0.9rem; line-height: 0.9rem; color: #fff; text-align: center; font-size: 0.6rem; font-weight: 600; overflow: hidden;}
 .swiper-slide p { color: #fff; text-align: center; font-size: 0.5rem; margin-top: 0.6rem; font-weight: normal;}
 .swiper-slide .plus { width: 2.5rem; height: 0.75rem; line-height: 0.75rem; margin: 0.85rem auto 0; -webkit-border-radius: 0.25rem; border-radius: 0.25rem; color: #fff; text-align: center; background-color: #24aa42;}
+
+/* 分享蒙版 */
+.share-overlay {display: none; position: fixed; top: 0; right:0; bottom: 0; left: 0; background: rgba(0, 0, 0, 0.4); z-index: 1000000;}
+.share-overlay .share-buttons {padding-bottom: 0.8rem;}
+.share-overlay .share-buttons .share-wechat-friend {text-align: center;}
+.share-overlay .share-buttons .share-wechat-timeline {text-align: center;}
+.share-overlay .share-buttons .share-weibo {text-align: center;}
+.share-overlay .share-buttons {position: absolute; bottom: 0; width: 100%; background: #fff;}
+.share-overlay .share-buttons .share-title{text-align: center; font-size: 0.65rem; color: #333; padding: 0.8rem 0;}
+.share-overlay .share-buttons .trim {width: 33.33%;}
+.share-buttons img {width: 1.3rem; height:1.3rem; display: block; margin: 0 auto;}
+.share-buttons span{font-size: 0.55rem; color:#777;}
+
+.overlay {position: fixed; background: rgba(0, 0, 0, 0.6); top: 0; right: 0; left: 0; bottom: 0; z-index: 10000;}
+.qrcode {position: fixed; top: 50%; left: 50%; height: 15rem; width: 14rem; margin-top: -8rem; margin-left: -7rem; background:#fff;padding: 0.5rem; text-align: left; z-index: 10001;}
+.qrcode .qrcode-title {padding-bottom: 0.25rem;  font-size: 0.8rem; border-bottom: 1px solid #eee;}
+.qrcode .qrcode-content {height: 10.4rem; padding: 0.5rem; overflow: hidden;}
+.qrcode .qrcode-content {font-size: 0.65rem; color: #777;}
+.qrcode .qrcode-content .qrcode-center {text-align: center;}
+.qrcode .qrcode-content .qrcode-center img {width: 7rem; height: 7rem;}
+.qrcode > .qrcode-button {position: absolute; bottom: -0.2rem; width: 100%; height: 2.2rem; background: #4caf50; left: 0; text-align: center; font-size: 0.7rem; line-height: 2.2rem; color: #fff; cursor: pointer; border: 0; border-radius: 0;}
+
+.wechat-share-tip {background: rgba(0, 0, 0, 0.6); position: fixed; z-index: 10000; width: 100%; height: 100%;}
+.wechat-share-tip img {position: fixed; width: 6rem; top: 0; right: 1.2rem;}

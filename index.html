@@ -15,6 +15,9 @@
         <link rel="stylesheet" href="css/style.css?v16">
     </head>
     <body>
+        <script type='text/javascript' src='http://res.wx.qq.com/open/js/jweixin-1.0.0.js'></script>
+        <script type='text/javascript' src='js/zepto.min.js' charset='utf-8'></script>
+        <script type='text/javascript' src="js/campaignSDK.js"></script>
         <!-- 封面 -->
         <div class="page index">
             <a class="btn-share" href="javascript"></a>
@@ -177,11 +180,29 @@
             </div>
         </div>
 
-        <script type='text/javascript' src='js/zepto.min.js' charset='utf-8'></script>
+        <!-- 分享蒙版  -->
+        <div class='share-overlay'>
+            <div class='share-buttons'>
+                <h2 class='share-title'>分享</h2>
+                <div class='row no-gutter'>
+                    <div class='share-wechat-friend col-33'>
+                        <img src='http://i5.tietuku.com/6a18cdce83cc65e2.png'/>
+                        <span>微信好友</span> 
+                    </div>
+                    <div class='share-wechat-timeline col-33'>
+                        <img src='http://i5.tietuku.com/6a18cdce83cc65e2.png'/>
+                        <span>朋友圈</span>
+                    </div>
+                    <div class='share-weibo col-33'>
+                        <img src='http://i5.tietuku.com/6a18cdce83cc65e2.png'/>
+                        <span>微博</span>
+                    </div>
+                </div>
+            </div>
+        </div>
         <script type='text/javascript' src='js/touch-0.2.14.min.js' charset='utf-8'></script>
         <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.5.2/js/sm.min.js' charset='utf-8'></script>
         <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.5.2/js/sm-extend.min.js' charset='utf-8'></script>
-        <script type='text/javascript' src="js/campaignSDK.min.js"></script>
         <script src="js/index.js?v17"></script>
     </body>
 </html>

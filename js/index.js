@@ -272,6 +272,42 @@ var createRanks = function(ranks) {
     return result;
 };
 
+/*  二维码展示组件 */
+var createQRcode = function(link) {
+    var result = (
+        '<div class="overlay"></div>' +
+        '<div class="qrcode">' +
+            '<div class="qrcode-title">分享到微信</div>' +
+            '<div class="qrcode-content">' +
+                '<div class="qrcode-center">' +
+                    '<img src="http://www.wandoujia.com/qr?s=5&c=' + encodeURIComponent(link) + '" />' +
+                '</div>' +
+                '<p>用微信扫描二维码，就可以分享到好友或朋友圈了</p>' +
+            '</div>' +
+            '<div class="qrcode-button">关闭</div>' +
+        '</div>'
+
+    );
+    $('.qrcode-button').live('click', function() {
+        $('.overlay').remove();
+        $('.qrcode').remove();
+    });
+    return result;
+}
+
+/* 微信分享提示组件 */
+var createWechatShareTip = function(tipImg) {
+    var result = (
+        '<div class="wechat-share-tip">' +
+            '<img width="103" src="' + tipImg + '"/>' +
+        '</div>'
+    );
+    $('.wechat-share-tip').live('click', function() {
+        $('.wechat-share-tip').remove(); 
+    });
+    return result;
+}
+
 if(campaignTools.UA.inPC){
     location.href = 'http://www.qingzhui.net/demo/huoxing_pc';
 }
@@ -415,39 +451,86 @@ $(function() {
             $('.bar-nav').css({'position':'relative'});
         }
     });*/
+
     $.refreshScroller();
 
-    //分享
-    $('.share').live('tap', function(){
-        alert(campaignTools.UA.inWechat);
-        if(campaignTools.UA.inWechat) {
-            var shareTimelineObject = {
-                title: '这是分享到朋友圈的标题',
-                link: '这是分享到朋友圈的链接',
-                imgUrl: 'http://www.wandoujia.com/xxx.jpg', //配图
-                successCallback: function () {
-                    alert('分享到微信朋友圈成功');
-                }
-            };
-            var shareFriendObject = {
-                title: '这是分享到好友标题',
-                link: '这是分享到好友的链接',
-                desc: '这是分享给好友的简介',
-                imgUrl: 'http://www.wandoujia.com/xxx.jpg', //配图
-                successCallback: function () {
-                    alert('分享给微信好友成功');
-                }
-            };
+    // 分享部分 
+    if (campaignTools.UA.inWechat) {
+        var shareTimelineObject = {
+            title: '这是分享到朋友圈的标题',
+            desc: '这是分享到朋友圈的描述',
+            link: location.href.split('#')[0],
+            imgUrl: 'http://i5.tietuku.com/ba62662f544d0bb2.jpg', //配图
+            successCallback: function() {}
+        };
 
-            campaignTools.wechatWebviewShareSetup(shareTimelineObject, shareFriendObject);
-        }else{
-            var title = 'ddddddddddddd';
-            var content = 'ddddd';
-            campaignTools.runSystemShare(title, content);
-        }
+        var shareFriendObject = {
+            title: '这是分享到好友标题',
+            desc: '这是分享给好友的描述',
+            link: location.href.split('#')[0],
+            desc: '这是分享给好友的简介',
+            imgUrl: 'http://i5.tietuku.com/ba62662f544d0bb2.jpg', //配图
+            successCallback: function() {}
+        };
+
+        campaignTools.wechatWebviewShareSetup(shareTimelineObject, shareFriendObject);
+    }
+
+    var weibo = {
+        element: '.share-weibo',
+        desc: '微博分享',
+        link: location.href.split('#')[0],
+        shortLink: location.href.split('#')[0],
+        imgUrl: 'http://i5.tietuku.com/ba62662f544d0bb2.jpg',
+        successCallback: function() {}
+    };
+
+    var wechatFriend = {
+        element: '.share-wechat-friend',
+        title: '朋友',
+        desc: '朋友分享',
+        link: location.href.split('#')[0],
+        imgUrl: 'http://i5.tietuku.com/ba62662f544d0bb2.jpg',
+        tips: function () {
+            var tipsImg = 'http://t.wdjcdn.com/upload/mkt-campaign/designaward/208/wechat-share-tips.png';
+            $('body').append(createWechatShareTip(tipsImg));
+        },
+        qrcode: function () {
+            $('body').append(createQRcode(wechatFriend.link));
+        },
+        successCallback: function() {}
+    };
+
+
+    var wechatTimeline = {
+        element: '.share-wechat-timeline',
+        title: '朋友圈',
+        link: location.href.split('#')[0],
+        imgUrl: 'http://i5.tietuku.com/ba62662f544d0bb2.jpg',
+        tips: function () {
+            var tipsImg = 'http://t.wdjcdn.com/upload/mkt-campaign/designaward/208/wechat-share-tips.png';
+            $('body').append(createWechatShareTip(tipsImg));
+        },
+        qrcode: function () {
+            $('body').append(createQRcode(wechatTimeline.link));
+        },
+        successCallback: function() {}
+    };
+
+    campaignTools.shareButtonSetup(weibo, wechatFriend, wechatTimeline); 
+
+
+    $('.share').live('tap', function(){
+        $('.share-overlay').addClass('page-moveFromBottom');
+        $('.share-overlay').show();
+        setTimeout(function(){
+            $('.share-overlay').removeClass('page-moveFromBottom');
+        },600);
     });
 
-
+    $('.share-overlay').live('tap', function() {
+        $('.share-overlay').hide();
+    });
 
     $.init();
 });
