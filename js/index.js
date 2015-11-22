@@ -116,7 +116,9 @@
             '<img class="logo_image" src="images/logo3.png"/>' +
             '<div class="logo_desc">豌豆荚一览</div>' +
             '</div>' +
+            '<a class="external" href="' + download.url +'">' +
             '<div class="download_button">下载</div>' +
+            '</a>' +
             '<div class="app_image">' +
             '<img src="'+ download.image + '"/>' +
             '</div>';
@@ -140,7 +142,10 @@
     var createPartners = function(partners) {
         var images = [];
         partners.forEach(function(partner) {
-            images.push('<a class="external" href="http://www.baidu.com/"><img src="' + partner.logo +'"/></a>');
+            images.push(
+                '<a class="external" href="' + partner.url + '">' +
+                    '<img src="' + partner.logo +'"/>' +
+                '</a>');
         });
 
         var result = '<div class="partners_desc">合作伙伴</div>' +
@@ -268,55 +273,95 @@
 
             detail = [];
         });
-
+    
         var result = ranking.join('');
         return result;
     };
 
+    /*  二维码展示组件 */
+    var createQRcode = function(link) {
+        var result = (
+            '<div class="overlay"></div>' +
+            '<div class="qrcode">' +
+                '<div class="qrcode-title">分享到微信</div>' +
+                '<div class="qrcode-content">' +
+                    '<div class="qrcode-center">' +
+                        '<img src="http://www.wandoujia.com/qr?s=5&c=' + encodeURIComponent(link) + '" />' +
+                    '</div>' +
+                    '<p>用微信扫描二维码，就可以分享到好友或朋友圈了</p>' +
+                '</div>' +
+                '<div class="qrcode-button">关闭</div>' +
+            '</div>'
+    
+        );
+        $('.qrcode-button').live('click', function() {
+            $('.overlay').remove();
+            $('.qrcode').remove();
+        });
+        return result;
+    }
+    
+    /* 微信分享提示组件 */
+    var createWechatShareTip = function(tipImg) {
+        var result = (
+            '<div class="wechat-share-tip">' +
+                '<img width="103" src="' + tipImg + '"/>' +
+            '</div>'
+        );
+        $('.wechat-share-tip').live('click', function() {
+            $('.wechat-share-tip').remove(); 
+        });
+        return result;
+    }
+    
+    if(campaignTools.UA.inPC){
+        location.href = 'http://www.qingzhui.net/demo/huoxing_pc';
+    }
+
     $(function() {
         // 封面数据配置
-        $.get('http://mars.tomasran.me/api/cover', function(data) {
+        $.get('/api/cover', function(data) {
             var cover = data.data;
-
+    
             $('.index .content').append(createCover(cover));
         });
-
+    
         // 长文章数据配置
-        $.get('http://mars.tomasran.me/api/article', function(data) {
+        $.get('/api/article', function(data) {
             var navigation = data.data.navigation;
             var paragraphs = data.data.paras;
             var download = data.data.download;
             var symbol = data.data.symbol;
             var apps = data.data.apps;
-
+    
             $('.page1 .bar').append(createNavigator(navigation));
             $('.wdj-logo').append(createSymbol(symbol));
             $('.page1 .list1').append(createParagraphs(paragraphs));
             $('.page1 .download').append(createDownload(download));
             $('.page1 .slide').append(createApps(apps));
         });
-
+    
         // 排行榜数据配置
-        $.get('http://mars.tomasran.me/api/rank', function(data) {
+        $.get('/api/rank', function(data) {
             var navigation = data.data.navigation;
             var ranks = data.data.ranks;
             var download = data.data.download;
-
+    
             $('.page7 .bar').append(createNavigator(navigation));
             $('.page7 .list3').append(createRanks(ranks))
             $('.page7 .download').append(createDownload(download));
         });
-
+    
         // 摘要页数据配置
-        $.get('http://mars.tomasran.me/api/overview', function(data) {
+        $.get('/api/overview', function(data) {
             var details = data.data.details;
-
+    
             details.forEach(function(detail, index) {
                 var navigation = detail.navigation;
                 var review = detail.review;
                 var cards = detail.cards;
                 var download = detail.download;
-
+    
                 var number = index + 2;
                 $('.page' + number + ' .head').append(createReview(review));
                 $('.page' + number + ' .list2').append(createCards(cards));
@@ -324,12 +369,81 @@
                 $('.page' + number + ' .download').append(createDownload(download));
             });
         });
-
+    
         //合作伙伴配置
-        $.get('http://mars.tomasran.me/api/partners', function(data) {
+        $.get('/api/partners', function(data) {
             var partners = data.data.partners;
-
+    
             $('.partners').append(createPartners(partners));
+        });
+
+        // 分享数据配置 
+        $.get('/api/share', function(data) {
+            var wbConfig = data.data.weibo;         
+            var wechatTimelineConfig = data.data.wechatTimelineConfig;
+            var wechatFriendConfig = data.data.wechatFriendConfig;
+
+            var weibo = {
+                element: '.share-weibo',
+                desc: wbConfig.desc,
+                link: wbConfig.link,
+                shortLink: wbConfig.shortLink,
+                imgUrl: wbConfig.imgUrl,
+                successCallback: function() {}
+            };
+
+            var wechatFriend = {
+                element: '.share-wechat-friend',
+                title: '朋友',
+                desc: '朋友分享',
+                link: location.href.split('#')[0],
+                imgUrl: 'http://i5.tietuku.com/ba62662f544d0bb2.jpg',
+                tips: function () {
+                    var tipsImg = 'http://t.wdjcdn.com/upload/mkt-campaign/designaward/208/wechat-share-tips.png';
+                    $('body').append(createWechatShareTip(tipsImg));
+                },
+                qrcode: function () {
+                    $('body').append(createQRcode(wechatFriend.link));
+                },
+                successCallback: function() {}
+            };
+    
+            var wechatTimeline = {
+                element: '.share-wechat-timeline',
+                title: '朋友圈',
+                link: location.href.split('#')[0],
+                imgUrl: 'http://i5.tietuku.com/ba62662f544d0bb2.jpg',
+                tips: function () {
+                    var tipsImg = 'http://t.wdjcdn.com/upload/mkt-campaign/designaward/208/wechat-share-tips.png';
+                    $('body').append(createWechatShareTip(tipsImg));
+                },
+                qrcode: function () {
+                    $('body').append(createQRcode(wechatTimeline.link));
+                },
+                successCallback: function() {}
+            };
+    
+            campaignTools.shareButtonSetup(weibo, wechatFriend, wechatTimeline); 
+
+            if (campaignTools.UA.inWechat) {
+                var shareTimelineObject = {
+                    title: wechatTimelineConfig.title,
+                    desc: wechatTimelineConfig.desc, 
+                    link: wechatTimelineConfig.link,
+                    imgUrl: wechatTimelineConfig.imgUrl, //配图
+                    successCallback: function() {}
+                };
+    
+                var shareFriendObject = {
+                    title: wechatFriendConfig.title,
+                    desc: wechatFriendConfig.desc,
+                    link: wechatFriendConfig.link,
+                    imgUrl: wechatFriendConfig.imgUrl, //配图
+                    successCallback: function() {}
+                };
+    
+                campaignTools.wechatWebviewShareSetup(shareTimelineObject, shareFriendObject);
+            }
         });
 
         //查看详情
@@ -342,24 +456,22 @@
                 $('.page' + index).removeClass('page-moveFromBottom');
             },600);
             $('.page-detail .content').scrollTop(0);
-
+    
             $(".swiper-container").swiper({
                 slidesPerView: 'auto',
                 spaceBetween: 15
             });
         });
-
-
-
+    
         //变量
         var isAnimating = false;
-
+    
         //向左
         $('.page-detail').on('swipeLeft', function(){
             if (isAnimating) return;
             var now = $(this).index();
             var last = now;
-
+    
             if (last !== 7) {
                 now = last + 1;
                 pageMove(towards.left, now, last);
@@ -367,7 +479,7 @@
                 $.alert('已经到最后一页了');
             }
         });
-
+    
         //向右
         $('.page-detail').on('swipeRight', function (){
             if (isAnimating) return;
@@ -380,19 +492,19 @@
                 $.alert('已经到第一页了');
             }
         });
-
+    
         //关闭详情
         $(document).on('click', '.btn-back', function(){
             var parent = $(this).parents('.page');
             parent.addClass('page-moveToBottom');
-
+    
             setTimeout(function(){
                 parent.removeClass('page-moveToBottom');
                 parent.hide();
             }, 600);
             $('.page-detail .content').scrollTop(0);
         });
-
+    
         //排行榜 手风琴
         $('.list3 li').live('click', function(ev){
             var child = $(this).parent().find('.sublist');
@@ -400,56 +512,44 @@
                 $(this).find('.shape').animate({'rotateZ': '90deg'},500);
                 child.show();
                 child.addClass('scaleUpCenter');
-                setTimeout(function(){
+                setTimeout(function() {
                     child.removeClass('scaleUpCenter');
-                },600);
+                }, 600);
             }else{
                 $(this).find('.shape').animate({'rotateZ': '0'},500);
                 child.hide();
             }
         });
-
-        //监听滚动
-        /*$('.content').on('scroll',function(){
-         var num = $(this).scrollTop();
-         if(num >= 145){
-         $('.bar-nav').css({'position':'fixed'});
-         }else{
-         $('.bar-nav').css({'position':'relative'});
-         }
-         });*/
-        $.refreshScroller();
-
-        //分享
+    
         $('.share').live('tap', function(){
-            alert(campaignTools.UA.inWechat);
-            if(campaignTools.UA.inWechat) {
-                var shareTimelineObject = {
-                    title: '这是分享到朋友圈的标题',
-                    link: '这是分享到朋友圈的链接',
-                    imgUrl: 'http://www.wandoujia.com/xxx.jpg', //配图
-                    successCallback: function () {
-                        alert('分享到微信朋友圈成功');
-                    }
-                };
-                var shareFriendObject = {
-                    title: '这是分享到好友标题',
-                    link: '这是分享到好友的链接',
-                    desc: '这是分享给好友的简介',
-                    imgUrl: 'http://www.wandoujia.com/xxx.jpg', //配图
-                    successCallback: function () {
-                        alert('分享给微信好友成功');
-                    }
-                };
-
-                campaignTools.wechatWebviewShareSetup(shareTimelineObject, shareFriendObject);
-            }else{
-                var title = 'ddddddddddddd';
-                var content = 'ddddd';
-                campaignTools.runSystemShare(title, content);
-            }
+            $('.share-menu').addClass('page-moveFromBottom');
+            $('.share-overlay').addClass('pageFadeIn');
+            $('.share-menu').show();
+            $('.share-overlay').show();
+            setTimeout(function(){
+                $('.share-menu').removeClass('page-moveFromBottom');
+                $('.share-overlay').removeClass('pageFadeIn');
+            }, 600);
         });
 
+        $('.btn-share').live('tap', function(){
+            $('.share-menu').addClass('page-moveFromBottom');
+            $('.share-overlay').addClass('pageFadeIn');
+            $('.share-menu').show();
+            $('.share-overlay').show();
+            setTimeout(function(){
+                $('.share-menu').removeClass('page-moveFromBottom');
+                $('.share-overlay').removeClass('pageFadeIn');
+            }, 600);
+        });
+
+        $('.share-menu').live('tap', function() {
+            $('.share-menu').hide();
+            $('.share-overlay').hide();
+        });
+        
+        $.refreshScroller();
+    
         $.init();
     });
 }(Zepto));

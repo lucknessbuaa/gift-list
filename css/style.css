@@ -38,7 +38,7 @@ body { font-family: '方正兰亭细黑'; text-size-adjust: none;}
 .list1 .con { width: 13.6rem; margin: 0.8rem auto 1.6rem;}
 .list1 .con p { line-height: 1.125rem; margin-bottom: 0.5rem; color: #858585; font-size: 0.75rem; text-align: justify;}
 .list1 .name { width: auto; height: 1.5rem; line-height: 1.5rem; color: #b5b5b5; font-size: 0.5rem; margin: 1.5rem auto 0; text-align: center; overflow: hidden;}
-.list1 .name .logo { width: 1.5rem; height: 1.5rem; vertical-align: -25%;}
+.list1 .name .logo { width: 1.5rem; height: 1.5rem; vertical-align: -25%; margin-right: 0.5rem; box-shadow: 0px 3px 4.8px 0.2px rgba(8, 1, 3, 0.25); border-radius: 0.25rem; -webkit-border-radius: 0.25rem;}
 .list1 .name span { font-size: 0.75rem;}
 .list1 .img { width: 100%; height: auto; margin-top: 1.6rem;}
 
@@ -97,3 +97,28 @@ body { font-family: '方正兰亭细黑'; text-size-adjust: none;}
 .swiper-slide h3 { width: 100%; height: 0.9rem; line-height: 0.9rem; color: #fff; text-align: center; font-size: 0.6rem; font-weight: 600; overflow: hidden;}
 .swiper-slide p { color: #fff; text-align: center; font-size: 0.5rem; margin-top: 0.6rem; font-weight: normal;}
 .swiper-slide .plus { width: 2.5rem; height: 0.75rem; line-height: 0.75rem; margin: 0.85rem auto 0; -webkit-border-radius: 0.25rem; border-radius: 0.25rem; color: #fff; text-align: center; background-color: #24aa42;}
+
+/* 分享蒙版 */
+.share-overlay {top: 0; bottom: 0; left: 0; right: 0;z-index: 10000; background: rgba(0, 0, 0, 0.4); position: fixed;display: none;}
+.share-menu {display: none; position: fixed; top: 0; right:0; bottom: 0; left: 0; z-index: 9999999;}
+.share-menu .share-buttons {padding-bottom: 0.8rem;}
+.share-menu .share-buttons .share-wechat-friend {text-align: center;}
+.share-menu .share-buttons .share-wechat-timeline {text-align: center;}
+.share-menu .share-buttons .share-weibo {text-align: center;}
+.share-menu .share-buttons {position: absolute; bottom: 0; width: 100%; background: #fff;}
+.share-menu .share-buttons .share-title{text-align: center; font-size: 0.65rem; color: #333; padding: 0.8rem 0;}
+.share-menu .share-buttons .trim {width: 33.33%;}
+.share-buttons img {width: 1.3rem; display: block; margin: 0 auto;}
+.share-buttons span{line-height: 1.5rem;font-size: 0.55rem; color:#777;}
+
+.overlay {position: fixed; background: rgba(0, 0, 0, 0.6); top: 0; right: 0; left: 0; bottom: 0; z-index: 10000;}
+.qrcode {position: fixed; top: 50%; left: 50%; height: 15rem; width: 14rem; margin-top: -8rem; margin-left: -7rem; background:#fff;padding: 0.5rem; text-align: left; z-index: 10001;}
+.qrcode .qrcode-title {padding-bottom: 0.25rem;  font-size: 0.8rem; border-bottom: 1px solid #eee;}
+.qrcode .qrcode-content {height: 10.4rem; padding: 0.5rem; overflow: hidden;}
+.qrcode .qrcode-content {font-size: 0.65rem; color: #777;}
+.qrcode .qrcode-content .qrcode-center {text-align: center;}
+.qrcode .qrcode-content .qrcode-center img {width: 7rem; height: 7rem;}
+.qrcode > .qrcode-button {position: absolute; bottom: -0.2rem; width: 100%; height: 2.2rem; background: #4caf50; left: 0; text-align: center; font-size: 0.7rem; line-height: 2.2rem; color: #fff; cursor: pointer; border: 0; border-radius: 0;}
+
+.wechat-share-tip {background: rgba(0, 0, 0, 0.6); position: fixed; z-index: 10000; top: 0; bottom: 0; left: 0; right: 0;}
+.wechat-share-tip img {position: fixed; width: 6rem; top: 0; right: 1.2rem;}

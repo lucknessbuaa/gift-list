@@ -10,6 +10,7 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
+        <script type='text/javascript' src='http://res.wx.qq.com/open/js/jweixin-1.0.0.js'></script>
         <script class="js1" type='text/javascript' src='js/zepto.min.js' charset='utf-8'></script>
         <script type='text/javascript' src="js/campaignSDK.min.js"></script>
         <script>
@@ -37,7 +38,7 @@
     <body id="body">
         <!-- 封面 -->
         <div class="page index">
-            <a class="btn-share" href="javascript"></a>
+            <a class="btn-share"></a>
             <div class="content"></div>
         </div>
 
@@ -197,6 +198,27 @@
             </div>
         </div>
 
+        <!-- 分享蒙版  -->
+        <div class='share-overlay'></div>
+        <div class='share-menu'>
+            <div class='share-buttons'>
+                <h2 class='share-title'>分享</h2>
+                <div class='row no-gutter'>
+                    <div class='share-wechat-friend col-33'>
+                        <img src='../images/wechat.png'/>
+                        <span>微信好友</span> 
+                    </div>
+                    <div class='share-wechat-timeline col-33'>
+                        <img src='../images/pyq.png'/>
+                        <span>朋友圈</span>
+                    </div>
+                    <div class='share-weibo col-33'>
+                        <img src='../images/weibo.png'/>
+                        <span>微博</span>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="body">
             <ul class="wrapul">
                 <li class="anli anli1"><img src="images/banner1.jpg"></li>
