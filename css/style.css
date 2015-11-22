@@ -1,5 +1,6 @@
 /* 封面 */
 *, *:before, *:after { margin: 0; padding: 0; -webkit-box-sizing: border-box; box-sizing: border-box; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+ul, li { list-style: none;}
 
 body { font-family: '方正兰亭细黑'; text-size-adjust: none;}
 .btn-share { position: absolute; top: 2%; right: 2%; width: 1.5rem; height: 1.5rem; background: url("../images/share.png") 0 0 no-repeat; -webkit-background-size: contain; background-size: contain; z-index: 20;}
@@ -10,6 +11,8 @@ body { font-family: '方正兰亭细黑'; text-size-adjust: none;}
 .row .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0, .3); z-index: 2;}
 .row .bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%;}
 
+.hide { display: none;}
+
 .row2 div h2 { position: absolute; top: 50%; left: 50%; -webkit-transform: translate(-50%, -50%);transform: translate(-50%, -50%); width: 100%; text-align: center; color: #fff; font-size: 0.6rem; font-weight: 400; z-index: 10;}
 .row1 .link { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: block; z-index: 15;}
 .row2 div .link { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: block; z-index: 15;}
@@ -19,7 +22,7 @@ body { font-family: '方正兰亭细黑'; text-size-adjust: none;}
 
 /* 详情 */
 .page-detail { z-index: 10000; background-color: #fff; overflow: hidden;}
-.page-detail .content {top: 0; overflow-x: hidden;}
+.page-detail .content {top: 0; overflow-x: hidden; -webkit-transform-style: preserve-3d; -webkit-backface-visibility: hidden;}
 .page-detail .content .detail { position: relative; background-color: #fff; padding-top: 2rem;}
 
 /* 顶部导航 */
@@ -89,10 +92,10 @@ body { font-family: '方正兰亭细黑'; text-size-adjust: none;}
 .sublist .con span { color: #24aa42; padding: 0 0.5rem;}
 
 /* 推荐应用 */
-.slide { margin-top: 1rem; padding: 1.25rem; width: 100%; height: 15.75rem; background-image: url('../images/slide-bg.jpg'); -webkit-background-size: cover; background-size: cover; background-position: top center;}
+.slide { margin-top: 1rem; padding: 1.25rem; width: 100%; height: 15.75rem; background-image: url('../images/slide-bg.jpg'); -webkit-background-size: cover; background-size: cover; background-position: top center; overflow: hidden;}
 .slide h2 { width: 70%; margin: 0 auto 1rem; text-align: center; color: #fff; font-size: 0.7rem; font-weight: 600;}
-.swiper-container .swiper-slide { width: 33%; display: -webkit-box; display: -ms-flexbox; display: -webkit-flex; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; -webkit-justify-content: center; justify-content: center; -webkit-box-align: center; -ms-flex-align: center; height: 11rem;}
-.swiper-slide .con { width: 100%; height: 9rem; background-color: #1468d3;}
+.swiper-container .swiper-slide { width: 33%; height: 11rem; display: -webkit-box; display: -ms-flexbox; display: -webkit-flex; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; -webkit-justify-content: center; justify-content: center; -webkit-box-align: center; -ms-flex-align: center; overflow: hidden;}
+.swiper-slide .con { width: 100%; height: 9rem; overflow: hidden; background-color: #1468d3;}
 .swiper-slide .logo { width: 2.65rem; height: 2.65rem; display: block; margin: 1.75rem auto 1.25rem;}
 .swiper-slide h3 { width: 100%; height: 0.9rem; line-height: 0.9rem; color: #fff; text-align: center; font-size: 0.6rem; font-weight: 600; overflow: hidden;}
 .swiper-slide p { color: #fff; text-align: center; font-size: 0.4rem; margin-top: 0.6rem; font-weight: normal;}
