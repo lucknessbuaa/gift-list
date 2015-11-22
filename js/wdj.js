@@ -17,8 +17,22 @@
         }
         slideTimer = setInterval(slide, 3000);
 
-        $(window).on('resize',function(){
-            window.location.reload();
+        $(window).on('resize',function() { 
+
+           var onResize = function () {
+                location.reload();
+            };
+
+            var winNewWidth = $(window).width();
+            var winNewHeight = $(window).height();
+
+            if (winWidth !== winNewWidth || winHeight !== winNewHeight) {
+                window.clearTimeout(resizeTimeout);
+                resizeTimeout = window.setTimeout(onResize, 10);
+            }
+
+            winWidth = winNewWidth;
+            winHeight = winNewHeight;
         });
     });
 }(jQuery));
