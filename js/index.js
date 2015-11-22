@@ -236,6 +236,12 @@
     /**
      * 排行榜组件
      */
+    var createRanksTitle = function() {
+        var day = new Date().getMonth() + 1;
+        var title = day + ' 月大家在一览讨论这些话题：';
+        return title;
+    }
+
     var createRanks = function(ranks) {
         var ranking = [];
 
@@ -341,6 +347,7 @@
 
             //排行榜
             $('.page7 .bar').append(createNavigator(rank.navigation));
+            $('.page7 .head').text(createRanksTitle());
             $('.page7 .list3').append(createRanks(rank.ranks))
             $('.page7 .download').append(createDownload(rank.download));
 
