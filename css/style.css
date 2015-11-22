@@ -95,7 +95,7 @@ body { font-family: '方正兰亭细黑'; text-size-adjust: none;}
 .swiper-slide .con { width: 100%; height: 9rem; background-color: #1468d3;}
 .swiper-slide .logo { width: 2.65rem; height: 2.65rem; display: block; margin: 1.75rem auto 1.25rem;}
 .swiper-slide h3 { width: 100%; height: 0.9rem; line-height: 0.9rem; color: #fff; text-align: center; font-size: 0.6rem; font-weight: 600; overflow: hidden;}
-.swiper-slide p { color: #fff; text-align: center; font-size: 0.5rem; margin-top: 0.6rem; font-weight: normal;}
+.swiper-slide p { color: #fff; text-align: center; font-size: 0.4rem; margin-top: 0.6rem; font-weight: normal;}
 .swiper-slide .plus { width: 2.5rem; height: 0.75rem; line-height: 0.75rem; margin: 0.85rem auto 0; -webkit-border-radius: 0.25rem; border-radius: 0.25rem; color: #fff; text-align: center; background-color: #24aa42;}
 
 /* 分享蒙版 */
