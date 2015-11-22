@@ -470,6 +470,8 @@
     
         //向左
         $('.page-detail').on('swipeLeft', function(){
+            campaignTools.pushGaEvent('campaign-mars', 'slidepage');
+
             if (isAnimating) return;
             var now = $(this).index();
             var last = now;
@@ -486,6 +488,8 @@
     
         //向右
         $('.page-detail').on('swipeRight', function (){
+            campaignTools.pushGaEvent('campaign-mars', 'slidepage');
+
             if (isAnimating) return;
             var now = $(this).index();
             var last = now;
@@ -501,6 +505,8 @@
     
         //关闭详情
         $(document).on('click', '.btn-back', function(){
+            campaignTools.pushGaEvent('campaign-mars', 'clickexit');
+
             var parent = $(this).parents('.page');
             parent.addClass('page-moveToBottom');
     
@@ -513,6 +519,9 @@
     
         //排行榜 手风琴
         $('.list3 li').live('click', function(ev){
+            var index = $(this).parent().index();
+            campaignTools.pushGaEvent('campaign-mars', 'openrank', 'rank' + index);
+
             var child = $(this).parent().find('.sublist');
             if(child.css('display') == 'none'){
                 $(this).find('.shape').animate({'rotate': '90deg'},500);
@@ -530,6 +539,7 @@
         });
     
         $('.share').live('tap', function(){
+
             $('.share-menu').addClass('page-moveFromBottom');
             $('.share-overlay').addClass('pageFadeIn');
             $('.share-menu').show();
@@ -541,6 +551,7 @@
         });
 
         $('.btn-share').live('tap', function(){
+
             $('.share-menu').addClass('page-moveFromBottom');
             $('.share-overlay').addClass('pageFadeIn');
             $('.share-menu').show();
@@ -555,7 +566,33 @@
             $('.share-menu').hide();
             $('.share-overlay').hide();
         });
-        
+
+        // 分享GA
+        var shareGA = ['.share', '.btn-share', '.share-wechat-friend', '.share-wechat-timeline', '.share-weibo'];
+        $(shareGA.join(',')).live('click', function() {
+            if ($(this).is('.share-wechat-friend')) {
+                campaignTools.pushGaEvent('campaign-mars', 'share', 'wechatfriends'); 
+            } else if ($(this).is('.share-wechat-timeline')) {
+                campaignTools.pushGaEvent('campaign-mars', 'share', 'wechatmoments');
+            } else if ($(this).is('.share-weibo')){
+                campaignTools.pushGaEvent('campaign-mars', 'share', 'weibo');
+            } else if ($(this).is('.share')) {
+                campaignTools.pushGaEvent('campaign-mars', 'openshare');
+            } else if ($(this).is('.btn-share')) {
+                campaignTools.pushGaEvent('campaign-mars', 'openshare');
+            }
+        });
+
+        //合作伙伴GA
+        $('.partners_logs a').live('click', function() {
+           campaignTools.pushGaEvent('campaign-mars', 'clickpartner');
+        });
+
+        //下载按钮GA
+        $('.download_button').live('click', function() {
+           campaignTools.pushGaEvent('campaign-mars', 'download');
+        });
+
         $.refreshScroller();
     
         $.init();
