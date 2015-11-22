@@ -441,6 +441,8 @@
     
                 campaignTools.wechatWebviewShareSetup(shareTimelineObject, shareFriendObject);
             }
+
+            $.init();
         });
         
     
@@ -478,6 +480,8 @@
             } else {
                 $.alert('已经到最后一页了');
             }
+
+            $.refreshScroller();
         });
     
         //向右
@@ -491,6 +495,8 @@
             } else {
                 $.alert('已经到第一页了');
             }
+
+            $.refreshScroller();
         });
     
         //关闭详情
@@ -519,6 +525,8 @@
                 $(this).find('.shape').animate({'rotateZ': '0'},500);
                 child.hide();
             }
+
+            $.refreshScroller();
         });
     
         $('.share').live('tap', function(){
