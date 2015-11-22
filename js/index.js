@@ -435,6 +435,8 @@
     
                 campaignTools.wechatWebviewShareSetup(shareTimelineObject, shareFriendObject);
             }
+
+            $.init();
         });
         
     
