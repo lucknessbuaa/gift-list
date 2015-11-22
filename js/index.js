@@ -236,6 +236,12 @@
     /**
      * 排行榜组件
      */
+    var createRanksTitle = function() {
+        var day = new Date().getMonth() + 1;
+        var title = day + ' 月大家在一览讨论这些话题：';
+        return title;
+    }
+
     var createRanks = function(ranks) {
         var ranking = [];
 
@@ -314,74 +320,55 @@
         return result;
     }
     
-    if(campaignTools.UA.inPC){
-        location.href = 'http://www.qingzhui.net/demo/huoxing_pc';
-    }
+//    if(campaignTools.UA.inPC){
+//        location.href = 'http://www.qingzhui.net/demo/huoxing_pc';
+//    }
 
     $(function() {
-        // 封面数据配置
-        $.get('http://mars.tomasran.me/api/cover', function(data) {
-            var cover = data.data;
-    
-            $('.index .content').append(createCover(cover));
-        });
-    
-        // 长文章数据配置
-        $.get('http://mars.tomasran.me/api/article', function(data) {
-            var navigation = data.data.navigation;
-            var paragraphs = data.data.paras;
-            var download = data.data.download;
-            var symbol = data.data.symbol;
-            var apps = data.data.apps;
-    
-            $('.page1 .bar').append(createNavigator(navigation));
-            $('.wdj-logo').append(createSymbol(symbol));
-            $('.page1 .list1').append(createParagraphs(paragraphs));
-            $('.page1 .download').append(createDownload(download));
-            $('.page1 .slide').append(createApps(apps));
-        });
-    
-        // 排行榜数据配置
-        $.get('http://mars.tomasran.me/api/rank', function(data) {
-            var navigation = data.data.navigation;
-            var ranks = data.data.ranks;
-            var download = data.data.download;
-    
-            $('.page7 .bar').append(createNavigator(navigation));
-            $('.page7 .list3').append(createRanks(ranks))
-            $('.page7 .download').append(createDownload(download));
-        });
-    
-        // 摘要页数据配置
-        $.get('http://mars.tomasran.me/api/overview', function(data) {
-            var details = data.data.details;
-    
-            details.forEach(function(detail, index) {
-                var navigation = detail.navigation;
-                var review = detail.review;
-                var cards = detail.cards;
-                var download = detail.download;
-    
-                var number = index + 2;
-                $('.page' + number + ' .head').append(createReview(review));
-                $('.page' + number + ' .list2').append(createCards(cards));
-                $('.page' + number + ' .bar').append(createNavigator(navigation));
-                $('.page' + number + ' .download').append(createDownload(download));
-            });
-        });
-    
-        //合作伙伴配置
-        $.get('http://mars.tomasran.me/api/partners', function(data) {
-            var partners = data.data.partners;
-    
-            $('.partners').append(createPartners(partners));
-        });
+        // 数据获取配置
+        $.get('http://mars.tomasran.me/api/config', function(data) {
+            var config = data.data; 
+            var cover = config.cover;
+            var article = config.article;
+            var rank = config.rank;
+            var share = config.share;
+            var overview = config.overview;
+            var partners = config.partners;
 
-        // 分享数据配置 
-        $.get('http://mars.tomasran.me/api/share', function(data) {
-            var wbConfig = data.data.weibo;         
-            var wechatTimelineConfig = data.data.wechatTimelineConfig;
-            var wechatFriendConfig = data.data.wechatFriendConfig;
+            // 封面
+            $('.index .content').append(createCover(cover));
+            
+            // 长文章
+            $('.page1 .bar').append(createNavigator(article.navigation));
+            $('.wdj-logo').append(createSymbol(article.symbol));
+            $('.page1 .list1').append(createParagraphs(article.paras));
+            $('.page1 .download').append(createDownload(article.download));
+            $('.page1 .slide').append(createApps(article.apps));
+
+            //排行榜
+            $('.page7 .bar').append(createNavigator(rank.navigation));
+            $('.page7 .head').text(createRanksTitle());
+            $('.page7 .list3').append(createRanks(rank.ranks))
+            $('.page7 .download').append(createDownload(rank.download));
+
+
+            //摘要页
+            var details = overview.details;
+            details.forEach(function(detail, index) {
+                var number = index + 2;
+                $('.page' + number + ' .head').append(createReview(detail.review));
+                $('.page' + number + ' .list2').append(createCards(detail.cards));
+                $('.page' + number + ' .bar').append(createNavigator(detail.navigation));
+                $('.page' + number + ' .download').append(createDownload(detail.download));
+            });
+
+            //合作伙伴
+            $('.partners').append(createPartners(partners.content));
+
+            //分享
+            var wbConfig = share.weibo;         
+            var wechatTimelineConfig = share.wechatTimelineConfig;
+            var wechatFriendConfig = share.wechatFriendConfig;
 
             var weibo = {
                 element: '.share-weibo',
@@ -389,6 +376,10 @@
                 link: wbConfig.link,
                 shortLink: wbConfig.shortLink,
                 imgUrl: wbConfig.imgUrl,
+                tips: function() {
+                    var tipsImg = 'http://t.wdjcdn.com/upload/mkt-campaign/designaward/208/wechat-share-tips.png';
+                    $('body').append(createWechatShareTip(tipsImg));
+                },
                 successCallback: function() {}
             };
 
@@ -430,7 +421,7 @@
                     title: wechatTimelineConfig.title,
                     desc: wechatTimelineConfig.desc, 
                     link: wechatTimelineConfig.link,
-                    imgUrl: wechatTimelineConfig.imgUrl, //配图
+                    imgUrl: wechatTimelineConfig.imgUrl,
                     successCallback: function() {}
                 };
     
@@ -438,14 +429,15 @@
                     title: wechatFriendConfig.title,
                     desc: wechatFriendConfig.desc,
                     link: wechatFriendConfig.link,
-                    imgUrl: wechatFriendConfig.imgUrl, //配图
+                    imgUrl: wechatFriendConfig.imgUrl,
                     successCallback: function() {}
                 };
     
                 campaignTools.wechatWebviewShareSetup(shareTimelineObject, shareFriendObject);
             }
         });
-
+        
+    
         //查看详情
         $(document).on('click', '.link', function (e){
             var index = $(this).attr('data-type');

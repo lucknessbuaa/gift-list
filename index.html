@@ -12,17 +12,19 @@
 
         <script type='text/javascript' src='http://res.wx.qq.com/open/js/jweixin-1.0.0.js'></script>
         <script class="js1" type='text/javascript' src='js/zepto.min.js' charset='utf-8'></script>
-        <script type='text/javascript' src="js/campaignSDK.min.js"></script>
+        <script type='text/javascript' src="js/campaignSDK.js"></script>
         <script>
-            if(campaignTools.UA.inPC){
+            if (campaignTools.UA.inPC){
                 $(function(){
                     $('.body').show();
                     $('.page').hide();
+                    $('.share-menu').hide();
+                    $('.share-overlay').hide();
                     $('.sheet1').remove();
                     $('.js1').remove();
                     $('.sheet').attr({'href': 'css/style_pc.css'});
                 });
-            }else{
+            } else {
                 $(function(){
                     $('.body').hide();
                     $('.js2').remove();
@@ -184,7 +186,7 @@
 
             <div class="content" data-type="js">
                 <div class="detail">
-                    <h2 class="head">11 月大家在一览讨论这些话题：</h2>
+                    <h2 class="head"></h2>
 
                     <!-- 列表 -->
                     <ul class="list3"></ul>
@@ -219,6 +221,7 @@
                 </div>
             </div>
         </div>
+
         <div class="body">
             <ul class="wrapul">
                 <li class="anli anli1"><img src="images/banner1.jpg"></li>
