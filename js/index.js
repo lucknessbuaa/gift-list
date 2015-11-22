@@ -249,12 +249,6 @@
     /**
      * 排行榜组件
      */
-    var createRanksTitle = function() {
-        var day = new Date().getMonth() + 1;
-        var title = day + ' 月大家在一览讨论这些话题：';
-        return title;
-    }
-
     var createRanks = function(ranks) {
         var ranking = [];
 
@@ -333,10 +327,6 @@
         return result;
     }
     
-//    if(campaignTools.UA.inPC){
-//        location.href = 'http://www.qingzhui.net/demo/huoxing_pc';
-//    }
-
     $(function() {
         var param = getRequest();
         // 数据获取配置
@@ -363,7 +353,7 @@
 
             //排行榜
             $('.page7 .bar').append(createNavigator(rank.navigation));
-            $('.page7 .head').text(createRanksTitle());
+            $('.page7 .head').text(rank.title);
             $('.page7 .list3').append(createRanks(rank.ranks))
             $('.page7 .download').append(createDownload(rank.download));
 
