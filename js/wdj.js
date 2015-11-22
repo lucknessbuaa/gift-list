@@ -1,8 +1,8 @@
 (function($){
     $(function() {
         var slideIndex = 0,
-            viewWidth = $(window).width(),
-            viewHeight = $(window).height();
+            viewWidth = $(window).width() + 23,
+            viewHeight = $(window).height() + 23;
 
         $('.body').css({
             'width': viewWidth,
@@ -20,15 +20,5 @@
         $(window).on('resize',function(){
             window.location.reload();
         });
-
-        /*function isMobileUserAgent(){
-         return (/iphone|ipod|android.*mobile|windows.*phone|blackberry.*mobile/i.test(window.navigator.userAgent.toLowerCase()));
-         };
-
-         var isPc = isMobileUserAgent();
-
-         if(isPc){
-         location.href = 'http://www.qingzhui.net/demo/huoxing'
-         }*/
     });
 }(jQuery));
