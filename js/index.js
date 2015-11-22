@@ -4,6 +4,19 @@
         right: 2
     };
 
+    function getRequest() {
+        var url = location.search;
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for(var i = 0; i < strs.length; i ++) {
+                theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+    }
+
     function pageMove(tw, now, last) {
         var lastPage = '.page' + last;
         var nowPage = ".page" + now;
@@ -325,8 +338,11 @@
 //    }
 
     $(function() {
+        var param = getRequest();
         // 数据获取配置
-        $.get('http://mars.tomasran.me/api/config', function(data) {
+        $.get('http://mars.tomasran.me/api/config', {
+            id: param.id 
+        }, function(data) {
             var config = data.data; 
             var cover = config.cover;
             var article = config.article;
