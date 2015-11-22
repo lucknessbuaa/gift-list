@@ -320,14 +320,14 @@
 
     $(function() {
         // 封面数据配置
-        $.get('/api/cover', function(data) {
+        $.get('http://mars.tomasran.me/api/cover', function(data) {
             var cover = data.data;
     
             $('.index .content').append(createCover(cover));
         });
     
         // 长文章数据配置
-        $.get('/api/article', function(data) {
+        $.get('http://mars.tomasran.me/api/article', function(data) {
             var navigation = data.data.navigation;
             var paragraphs = data.data.paras;
             var download = data.data.download;
@@ -342,7 +342,7 @@
         });
     
         // 排行榜数据配置
-        $.get('/api/rank', function(data) {
+        $.get('http://mars.tomasran.me/api/rank', function(data) {
             var navigation = data.data.navigation;
             var ranks = data.data.ranks;
             var download = data.data.download;
@@ -353,7 +353,7 @@
         });
     
         // 摘要页数据配置
-        $.get('/api/overview', function(data) {
+        $.get('http://mars.tomasran.me/api/overview', function(data) {
             var details = data.data.details;
     
             details.forEach(function(detail, index) {
@@ -371,14 +371,14 @@
         });
     
         //合作伙伴配置
-        $.get('/api/partners', function(data) {
+        $.get('http://mars.tomasran.me/api/partners', function(data) {
             var partners = data.data.partners;
     
             $('.partners').append(createPartners(partners));
         });
 
         // 分享数据配置 
-        $.get('/api/share', function(data) {
+        $.get('http://mars.tomasran.me/api/share', function(data) {
             var wbConfig = data.data.weibo;         
             var wechatTimelineConfig = data.data.wechatTimelineConfig;
             var wechatFriendConfig = data.data.wechatFriendConfig;

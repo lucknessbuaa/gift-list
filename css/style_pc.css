@@ -1,10 +1,6 @@
 /* 清除内外边距 */
 body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, fieldset, button, input, textarea, th, td { margin: 0; padding: 0;}
-
-body, button, input, select, textarea {
-    font: 12px/1 Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
-}
-
+body, button, input, select, textarea { font: 12px/1 Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;}
 h1 { font-size: 18px;}
 h2 { font-size: 16px;}
 h3 { font-size: 14px;}
@@ -15,7 +11,7 @@ code, kbd, pre, samp, tt { font-family: "Courier New", Courier, monospace; }
 small { font-size: 12px; }
 
 /* 重置列表元素 */
-ul, ol { list-style: none; }
+ul, ol, li { list-style: none; }
 a { text-decoration: none; }
 a:hover { text-decoration: underline;}
 abbr[title], acronym[title] { border-bottom: 1px dotted; cursor: help; }
@@ -30,7 +26,6 @@ table { border-collapse: collapse; border-spacing: 0;}
 .right{float: right;}
 
 html, body { overflow: hidden;}
-li { list-style: none;}
 .body { position: absolute; color: #fff; font-family: "微软雅黑";}
 
 /* 幻灯片 */
