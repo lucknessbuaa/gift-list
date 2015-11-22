@@ -447,7 +447,6 @@
         //查看详情
         $(document).on('click', '.link', function (e){
             var index = $(this).attr('data-type');
-            console.log(index);
             $('.page' + index).addClass('page-moveFromBottom');
             $('.page' + index).show();
             setTimeout(function(){
@@ -459,8 +458,11 @@
                 slidesPerView: 'auto',
                 spaceBetween: 15
             });
+
+            campaignTools.pushGaEvent('campaign-mars', 'clickarticle', 'article' + index);
         });
     
+
         //变量
         var isAnimating = false;
     
