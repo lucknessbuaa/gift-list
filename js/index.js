@@ -515,14 +515,14 @@
         $('.list3 li').live('click', function(ev){
             var child = $(this).parent().find('.sublist');
             if(child.css('display') == 'none'){
-                $(this).find('.shape').animate({'rotateZ': '90deg'},500);
+                $(this).find('.shape').animate({'rotate': '90deg'},500);
                 child.show();
                 child.addClass('scaleUpCenter');
                 setTimeout(function() {
                     child.removeClass('scaleUpCenter');
                 }, 600);
             }else{
-                $(this).find('.shape').animate({'rotateZ': '0'},500);
+                $(this).find('.shape').animate({'rotate': '0'},500);
                 child.hide();
             }
 
