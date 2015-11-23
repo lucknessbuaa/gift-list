@@ -464,7 +464,6 @@
 
             campaignTools.pushGaEvent('campaign-mars', 'clickarticle', 'article' + index);
         });
-    
 
         //变量
         var isAnimating = false;
