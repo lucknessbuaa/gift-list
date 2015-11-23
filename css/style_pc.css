@@ -28,7 +28,7 @@ table { border-collapse: collapse; border-spacing: 0;}
 .hide { display: none;}
 
 html, body { overflow: hidden;}
-.body { position: absolute; color: #fff; font-family: "微软雅黑";}
+.body { position: absolute; color: #fff; font-family: 'Lantinghei SC', 'Microsoft Yahei', 'Hiragino Sans GB', 'Helvetica Neue', Hel    vetica, Arial, sans-serif;}
 
 /* 幻灯片 */
 .wrapul { position: absolute; width: 100%; height: 100%;}
@@ -56,6 +56,8 @@ html, body { overflow: hidden;}
 .p11{ margin-top: 32px; font-size: 28.21px; text-align: right;}
 .p12{ margin-top: 8px; font-size: 28.21px; text-align: right;}
 .pimg{ margin-bottom: 15px;}
+.pimg img {border: 2px solid #fff; padding: 0.4rem;}
+.pimg span {display: block; margin-top: 0.4rem;font-size: 1rem; letter-spacing: 0.16rem;}
 
 /* 响应 */
 @media only screen and (max-height: 850px){

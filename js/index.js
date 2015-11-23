@@ -361,7 +361,8 @@
                 '<p class="clearfix p11">' + content.part7 + '</p>' +
                 '<p class="clearfix p12">' + content.part8 + '</p>' +
                 '<p class="pimg">' +
-                    '<img src="images/qrcode.png" height="197" width="170">' +
+                    '<img src="http://www.wandoujia.com/qr?s=5&c=' +  encodeURIComponent(location.href) + '" height="150" width="150" />' +
+                    '<span>用手机扫二维码浏览</span>' +
                 '</p>'
         );
         return result;
