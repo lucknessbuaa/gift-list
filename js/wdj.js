@@ -9,16 +9,14 @@
             'height': viewHeight
         });
 
-        console.log(viewHeight);
-
-        //$('.wrapdiv').css('top', (viewHeight - $('.wrapdiv').outerHeight()) / 2);
-
         function slide() {
             slideIndex++;
             $('.anli').eq(slideIndex % 3).fadeIn('slow').siblings().fadeOut('slow');
         }
+
         slideTimer = setInterval(slide, 3000);
 
+        var resizeTimeout = null;
         $(window).on('resize',function() { 
 
            var onResize = function () {
@@ -29,8 +27,10 @@
             var winNewHeight = $(window).height();
 
             if (viewWidth != winNewWidth || viewHeight != winNewHeight) {
-                window.clearTimeout(resizeTimeout);
-                resizeTimeout = window.setTimeout(onResize, 10);
+                if (resizeTimeout) {
+                    window.clearTimeout(resizeTimeout);
+                }
+                resizeTimeout = window.setTimeout(onResize, 100);
             }
 
             winWidth = winNewWidth;

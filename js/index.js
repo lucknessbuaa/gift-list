@@ -326,8 +326,48 @@
         });
         return result;
     }
+
+    /* PC页面背景 */
+    var createPCBanners = function(banners) { 
+        var result = [];
+        banners.forEach(function(banner, index) {
+            var label = index + 1;
+            result.push(
+                '<li class="anli anli' + label +'">' +
+                    '<img src="' +  banner + '"/>'  +
+                '</li>' 
+            );
+        });
+        return result.join('');
+    }
+
+    /* PC段落 */
+    var createPCParagraphs = function(content) {
+        var result = (
+            '<div class="wrapdiv2">' +
+                '<p class="clearfix p1">' +
+                    '<img class="left" src="'+ content.logo.image +'" height="38" width="37" />' +
+                    '<span>' + content.logo.desc + '</span>' +
+                '</p>' +
+                '<p class="clearfix p2">' + content.title + '</p>' +
+                '<p class="clearfix p3"></p>' +
+                '<p class="clearfix p4">' + content.enTitle + '</p>' +
+                '<p class="clearfix p5">' + content.part1 + '</p>' +
+                '<p class="clearfix p6">' + content.part2 + '</p>' +
+                '<p class="clearfix p7">' + content.part3 + '</p>' +
+                '<p class="clearfix p8">' + content.part4 + '</p>' +
+                '<p class="clearfix p9">' + content.part5 + '</p>' +
+                '<p class="clearfix p10">' + content.part6 + '</p>' +
+                '<p class="clearfix p11">' + content.part7 + '</p>' +
+                '<p class="clearfix p12">' + content.part8 + '</p>' +
+                '<p class="pimg">' +
+                    '<img src="images/qrcode.png" height="197" width="170">' +
+                '</p>'
+        );
+        return result;
+    }
     
-    var initMobilePage = function(id){
+    var initPage = function(id){
         $.get('http://mars.tomasran.me/api/data', {
             id: id 
         }, function(data) {
@@ -338,6 +378,11 @@
             var share = config.share;
             var overview = config.overview;
             var partners = config.partners;
+            var pcConfig = config.pcConfig;
+
+            // PC端
+            $('.body .wrapul').append(createPCBanners(pcConfig.banners));
+            $('.body .wrapdiv').append(createPCParagraphs(pcConfig.content));
 
             // 封面
             $('.index .content').append(createCover(cover));
@@ -443,7 +488,6 @@
 
             $.init();
         });
-    
     }
 
     $(function() {
@@ -451,7 +495,7 @@
         // 数据获取配置
         $.get('http://mars.tomasran.me/api/config', function(data){
             if (param.id) {
-                data[param.id] ? initMobilePage(data[param.id]) : null;
+                data[param.id] ? initPage(data[param.id]) : null;
             }
         });
         //查看详情
