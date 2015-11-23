@@ -824,8 +824,8 @@
      */
     campaignTools.wechatWebviewShareSetup = function (shareTimelineObject, shareFriendObject) {
         $.ajax({
-            url: 'http://slide.cm/wechat/config',
-            type: 'GET',
+            url: 'http://who.wandoujia.com/wx-corp/js-sdk',
+            type: 'POST',
             data: {
                 url: location.href.split('#')[0]
             }
@@ -834,7 +834,7 @@
             var r = r.config;
             wx.config({
                 debug: false,
-                appId: 'wx82a5d90838b461ba',
+                appId: r.appId,
                 timestamp: r.timestamp,
                 nonceStr: r.nonceStr,
                 signature: r.signature,
