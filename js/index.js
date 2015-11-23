@@ -327,7 +327,7 @@
         return result;
     }
     
-    var initPage = function(id){
+    var initMobilePage = function(id){
         $.get('http://mars.tomasran.me/api/data', {
             id: id 
         }, function(data) {
@@ -451,7 +451,7 @@
         // 数据获取配置
         $.get('http://mars.tomasran.me/api/config', function(data){
             if (param.id) {
-                data[param.id] ? initPage(data[param.id]) : null;
+                data[param.id] ? initMobilePage(data[param.id]) : null;
             }
         });
         //查看详情
