@@ -327,11 +327,9 @@
         return result;
     }
     
-    $(function() {
-        var param = getRequest();
-        // 数据获取配置
-        $.get('http://mars.tomasran.me/api/config', {
-            id: param.id 
+    var initPage = function(id){
+        $.get('http://mars.tomasran.me/api/data', {
+            id: id 
         }, function(data) {
             var config = data.data; 
             var cover = config.cover;
@@ -391,10 +389,10 @@
 
             var wechatFriend = {
                 element: '.share-wechat-friend',
-                title: '朋友',
-                desc: '朋友分享',
-                link: location.href.split('#')[0],
-                imgUrl: 'http://i5.tietuku.com/ba62662f544d0bb2.jpg',
+                title: wechatFriendConfig.title, 
+                desc: wechatFriendConfig.desc,
+                link: wechatFriendConfig.link,
+                imgUrl: wechatFriendConfig.imgUrl,
                 tips: function () {
                     var tipsImg = 'http://t.wdjcdn.com/upload/mkt-campaign/designaward/208/wechat-share-tips.png';
                     $('body').append(createWechatShareTip(tipsImg));
@@ -407,9 +405,10 @@
     
             var wechatTimeline = {
                 element: '.share-wechat-timeline',
-                title: '朋友圈',
-                link: location.href.split('#')[0],
-                imgUrl: 'http://i5.tietuku.com/ba62662f544d0bb2.jpg',
+                title: wechatTimelineConfig.title,
+                desc: wechatTimelineConfig.desc,
+                link: wechatTimelineConfig.link,
+                imgUrl: wechatTimelineConfig.imgUrl,
                 tips: function () {
                     var tipsImg = 'http://t.wdjcdn.com/upload/mkt-campaign/designaward/208/wechat-share-tips.png';
                     $('body').append(createWechatShareTip(tipsImg));
@@ -444,8 +443,17 @@
 
             $.init();
         });
-        
     
+    }
+
+    $(function() {
+        var param = getRequest();
+        // 数据获取配置
+        $.get('http://mars.tomasran.me/api/config', function(data){
+            if (param.id) {
+                data[param.id] ? initPage(data[param.id]) : null;
+            }
+        });
         //查看详情
         $(document).on('click', '.link', function (e){
             var index = $(this).attr('data-type');
