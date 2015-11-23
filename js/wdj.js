@@ -9,7 +9,9 @@
             'height': viewHeight
         });
 
-        $('.wrapdiv').css('top', (viewHeight - $('.wrapdiv').outerHeight()) / 2);
+        console.log(viewHeight);
+
+        //$('.wrapdiv').css('top', (viewHeight - $('.wrapdiv').outerHeight()) / 2);
 
         function slide() {
             slideIndex++;
@@ -26,7 +28,7 @@
             var winNewWidth = $(window).width();
             var winNewHeight = $(window).height();
 
-            if (winWidth !== winNewWidth || winHeight !== winNewHeight) {
+            if (viewWidth != winNewWidth || viewHeight != winNewHeight) {
                 window.clearTimeout(resizeTimeout);
                 resizeTimeout = window.setTimeout(onResize, 10);
             }
