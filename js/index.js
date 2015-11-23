@@ -458,7 +458,8 @@
     
             $(".swiper-container").swiper({
                 slidesPerView: 'auto',
-                spaceBetween: 15
+                spaceBetween: 15,
+                onSlideChangeEnd: function() {campaignTools.pushGaEvent('campaign-mars', 'slidecard');}
             });
 
             campaignTools.pushGaEvent('campaign-mars', 'clickarticle', 'article' + index);
@@ -539,7 +540,6 @@
         });
     
         $('.share').live('tap', function(){
-
             $('.share-menu').addClass('page-moveFromBottom');
             $('.share-overlay').addClass('pageFadeIn');
             $('.share-menu').show();
@@ -551,7 +551,6 @@
         });
 
         $('.btn-share').live('tap', function(){
-
             $('.share-menu').addClass('page-moveFromBottom');
             $('.share-overlay').addClass('pageFadeIn');
             $('.share-menu').show();
