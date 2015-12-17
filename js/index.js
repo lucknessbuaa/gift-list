@@ -132,7 +132,7 @@ var urlConstant = '/img/';
         var smallCover = cover.overview;
 
         var topHalf = '<div class="row row1 index1"><div class="coverWrap">' +
-            '<img id="icon" src="' + urlConstant + 'icon-gift.png" />' + 
+            '<img id="icon" src=' + largeCover.icon + ' />' + 
             '<div><div class="titleOne">' + largeCover.titleOne + '</div></div>' +
             '<div><div class="titleTwo">' + largeCover.titleTwo + '</div></div>' +
             '<p>' + largeCover.content + '</p>' +
