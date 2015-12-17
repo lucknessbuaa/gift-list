@@ -1,8 +1,67 @@
+var urlConstant = '/img/';
+
 (function($){
     const towards = {
         left: 1,
         right: 2
     };
+
+    //download
+    var fakeClick = function (url) {
+        var $a = $('<a>');
+        $a.attr({
+            href: url
+        });
+        $('body').append($a);
+        var evt = document.createEvent('HTMLEvents');
+        evt.initEvent('click', false, false);
+        $a[0].dispatchEvent(evt);
+    };
+
+    function installBtn() {
+        // 如果是 iOS
+        if (campaignTools.UA.inIos) {
+            if (campaignTools.UA.inWechat) {
+                fakeClick('http://a.app.qq.com/o/simple.jsp?pkgname=com.wandoujia');
+            } else {
+                //weibo
+                if (!!(navigator.userAgent.toLowerCase()).match(/(weibo)/)) {
+                    // 这里需要自己写一个弹窗效果，提示用户点击右上角用浏览器打开当前页面
+                    //  $('.overlay').show().click(function () {
+                    //      $(this).hide();
+                    //  });
+                } else {
+                    fakeClick('https://itunes.apple.com/cn/app/wan-dou-jia-yi-lan-ni-gan/id1003672393?l=en&mt=8&ct=www-yilan-preview');
+                }
+            }
+            // 如果是 android
+        } else if (campaignTools.UA.inAndroid) {
+            // 豌豆荚客户端里直接安装
+            if (campaignTools.UA.inWdj) {
+                campaignPlugin.installApp({
+                    'packageName': 'com.wandoujia',
+                    'downloadUrl': 'http://apps.wandoujia.com/redirect?signature=03ef108&url=http%3A%2F%2Fapk.wandoujia.com%2Ff%2F85%2F09743cbc413172774006ad2a9816885f.apk&pn=com.wandoujia&md5=09743cbc413172774006ad2a9816885f&apkid=16677219&vc=55&size=16365452&pos=t%2Fcampaign',
+                    'appName': '豌豆荚一览',
+                    'iconUrl': 'http://img.wdjimg.com/mms/icon/v1/2/1b/64332936e0eeb5380d47514a7fecf1b2_256_256.png',
+                    'size': ''
+                });
+            
+            // 豌豆荚客户端之外
+            } else {
+                if (campaignTools.UA.inWechat) {
+                    fakeClick('http://fusion.qq.com/cgi-bin/qzapps/unified_jump' +
+                        '?appid=12103413&from=wx&isTimeline=false&actionFlag=0' +
+                        '&params=pname%3Dcom.wandoujia%26versioncode%3D33%26actionflag' +
+                        '%3D0%26channelid%3D');
+                } else {
+                    setTimeout(function () {
+                        fakeClick('http://apps.wandoujia.com/redirect?signature=03ef108&url=http%3A%2F%2Fapk.wandoujia.com%2Ff%2F85%2F09743cbc413172774006ad2a9816885f.apk&pn=com.wandoujia&md5=09743cbc413172774006ad2a9816885f&apkid=16677219&vc=55&size=16365452&pos=t%2Fcampaign');
+                    }, 300);
+                    fakeClick('wandoujia://detail/app/com.wandoujia#Intent;scheme=wdj;package=com.wandoujia.phoenix2;end');
+                }
+            }
+        }
+    }
 
     function getRequest() {
         var url = location.search;
@@ -52,40 +111,58 @@
     }
 
     /**
+     *下载悬浮组件
+     */
+    var createBottomView = function() {
+        return '<div class="bottomView">' +
+            '<img id="appIcon" src="' + urlConstant + 'app-icon.png" />' +
+            '<div id="appInfo">' +
+                '<div id="appTitle">豌豆荚一览</div>' +
+                '<div id="appIntro">一个页面浏览&nbsp;500+&nbsp;应用的最新内容</div>' +
+            '</div>' +
+            '<button id="install">安装</button>' +
+        '</div>'
+    }
+
+    /**
      * 封面组件
      */
     var createCover = function(cover) {
-        cover.overview.push(cover.rank);
-
         var largeCover = cover.article;
         var smallCover = cover.overview;
 
-        var topHalf = '<div class="row row1 index1">' +
-            '<a class="link link1 external" data-type="1" href="javascript:;"></a>' +
-            '<h2>' + largeCover.titleOne + '</h2>' +
-            '<p>' + largeCover.titleTwo + '</p>' +
+        var topHalf = '<div class="row row1 index1"><div class="coverWrap">' +
+            '<img id="icon" src="' + urlConstant + 'icon-gift.png" />' + 
+            '<div><div class="titleOne">' + largeCover.titleOne + '</div></div>' +
+            '<div><div class="titleTwo">' + largeCover.titleTwo + '</div></div>' +
+            '<p>' + largeCover.content + '</p>' +
             '<div class="overlay"></div>' +
             '<img class="bg" src="' + largeCover.background + '" alt="" />' +
-            '</div>';
+            '</div></div>';
         var bottomHalf = [];
         smallCover.forEach(function(item, index) {
             var left = index % 2;
-            var number = index + 2;
+            var number = index + 1;
             if (left === 0) {
                 bottomHalf.push('<div class="row row2">');
             }
+            
             bottomHalf.push(
-                '<div>' +
+                '<div class="tab">' +
+                '<div class="tab' + index + '">' +
                 '<a class="link link' + number +' external" data-type="' + number + '" href="javascript:;"></a>' +
-                '<h2>' + item.title + '</h2>' +
-                '<div class="overlay"></div>' +
-                '<img class="bg" src="' + item.background + '" alt="" />' +
-                '</div>'
+                '<div class="innerWrap"><div class="name">' + 
+                    '<img class="star" src="' + urlConstant + 'star.png"/>' + '&nbsp;&nbsp;' + 
+                    item.title + '&nbsp;&nbsp;' +
+                    '<img class="star" src="' + urlConstant + 'star.png" />' +
+                '</div></div>' +
+                '</div></div>'
             );
             if (left) {
                 bottomHalf.push('</div>');
             }
         });
+        bottomHalf.push(createBottomView()); 
         return topHalf + bottomHalf.join('');
     };
 
@@ -93,14 +170,48 @@
      * 1. 详情页综述组件 createReview
      * 2. 详情页列表组件 createCards
      */
-    var createReview = function(review) {
+    /*var createReview = function(review) {
         var result = '';
         result = '<h2>' + review.title + '</h2>' +
             '<p>' + review.content + '</p>'
         return result;
-    };
+    };*/
+    var createReview = function(review) {
+        var result = '';
+        result = '<img class="reviewCover" src=' + review.icon + ' />' +
+            '<div class="reviewInfo">' +
+                '<div class="reviewTitleOne">' + review.titleOne + '</div>' +
+                '<div class="reviewTitleTwo">' + review.titleTwo + '</div>' +
+                '<p>' + review.content + '</p>' + 
+            '</div>' + 
+            '<button class="buy" data-password="' + review.password + '">购买</button>';
+        return result;
+    }
+
+    var createSummary = function(summary) {
+        var result = '';
+        result = summary.text1 + 
+            '<span class="summaryNumber">' + summary.number + '</span>' +
+            summary.text2;
+        return result;
+    }
 
     var createCards = function(cards) {
+        var singleCard = [];
+        for (var i = 0; i < cards.length; i++) {
+            var cardTemp = cards[i];
+            singleCard.push(
+                '<li style="background-image: url(' + cardTemp.image + '); background-size: 100% 100%">' +
+                    '<a class="detailLink" data-link="' + cardTemp.url + '" data-cardindex="' + (i+1) + '"></a>' +
+                    '<div class="detailLiTitleOne">' + cardTemp.titleOne + '</div>' +
+                    '<div class="detailLiTitleTwo">' + cardTemp.titleTwo + '</div>' +
+                '</li>'
+            );
+        }
+        return singleCard.join('');
+    };
+
+    /*var createCards = function(cards) {
         var singleCard = [];
         for (var i = 0; i < cards.length; i++) {
             singleCard.push(
@@ -118,7 +229,7 @@
             );
         }
         return singleCard.join('');
-    };
+    };*/
 
     /**
      *  一览下载组件
@@ -126,7 +237,7 @@
     var createDownload = function(download) {
         var result = '<div class="download_desc">' + download.desc + '</div>' +
             '<div class="logo">' +
-            '<img class="logo_image" src="images/logo3.png"/>' +
+            '<img class="logo_image" src="' + urlConstant + 'logo3.png"/>' +
             '<div class="logo_desc">豌豆荚一览</div>' +
             '</div>' +
             '<a class="external" href="' + download.url +'">' +
@@ -143,8 +254,6 @@
      */
     var createNavigator = function(nav) {
         var result = '<a class="btn-back external" href="javascript:;"></a>' +
-            '<p>' + nav.desc + '</p>' +
-            '<h1>' + nav.theme + '</h1>' +
             '<a class="share external" href="javascript:;">分享</a>';
         return result;
     };
@@ -369,7 +478,7 @@
     }
     
     var initPage = function(id){
-        $.get('http://mars.tomasran.me/api/data', {
+        $.get('http://huoxing-test.limijiaoyin.com/api/data', {
             id: id 
         }, function(data) {
             var config = data.data; 
@@ -381,39 +490,29 @@
             var partners = config.partners;
             var pcConfig = config.pcConfig;
 
+            //分享组件分享文本
+            $('.share-menu .share-title')[0].innerHTML = config.shareText;
+
             // PC端
             $('.body .wrapul').append(createPCBanners(pcConfig.banners));
             $('.body .wrapdiv').append(createPCParagraphs(pcConfig.content));
 
             // 封面
             $('.index .content').append(createCover(cover));
-            
-            // 长文章
-            $('.page1 .bar').append(createNavigator(article.navigation));
-            $('.wdj-logo').append(createSymbol(article.symbol));
-            $('.page1 .list1').append(createParagraphs(article.paras));
-            $('.page1 .download').append(createDownload(article.download));
-            $('.page1 .slide').append(createApps(article.apps));
-
-            //排行榜
-            $('.page7 .bar').append(createNavigator(rank.navigation));
-            $('.page7 .head').text(rank.title);
-            $('.page7 .list3').append(createRanks(rank.ranks))
-            $('.page7 .download').append(createDownload(rank.download));
-
 
             //摘要页
             var details = overview.details;
             details.forEach(function(detail, index) {
-                var number = index + 2;
+                var number = index + 1;
                 $('.page' + number + ' .head').append(createReview(detail.review));
+                $('.page' + number + ' .summary').append(createSummary(detail.summary));
                 $('.page' + number + ' .list2').append(createCards(detail.cards));
                 $('.page' + number + ' .bar').append(createNavigator(detail.navigation));
-                $('.page' + number + ' .download').append(createDownload(detail.download));
+                $('.page' + number).append(createBottomView());
             });
 
             //合作伙伴
-            $('.partners').append(createPartners(partners.content));
+            //$('.partners').append(createPartners(partners.content));
 
             //分享
             var wbConfig = share.weibo;         
@@ -494,11 +593,14 @@
     $(function() {
         var param = getRequest();
         // 数据获取配置
-        $.get('http://mars.tomasran.me/api/config', function(data){
+        $.get('http://huoxing-test.limijiaoyin.com/api/config', function(data){
             if (param.id) {
                 data[param.id] ? initPage(data[param.id]) : null;
+            } else {
+                initPage(data['huoxing']);
             }
         });
+
         //查看详情
         $(document).on('click', '.link', function (e){
             var index = $(this).attr('data-type');
@@ -512,10 +614,10 @@
             $(".swiper-container").swiper({
                 slidesPerView: 'auto',
                 spaceBetween: 15,
-                onSlideChangeEnd: function() {campaignTools.pushGaEvent('campaign-mars', 'slidecard');}
+                onSlideChangeEnd: function() {campaignTools.pushGaEvent('gift-list', 'slidecard');}
             });
 
-            campaignTools.pushGaEvent('campaign-mars', 'clickarticle', 'article' + index);
+            campaignTools.pushGaEvent('gift-list', 'click', 'tab' + index);
         });
 
         //变量
@@ -523,7 +625,7 @@
     
         //向左
         $('.page-detail').on('swipeLeft', function(){
-            campaignTools.pushGaEvent('campaign-mars', 'slidepage');
+            campaignTools.pushGaEvent('gift-list', 'slidepage');
 
             if (isAnimating) return;
             var now = $(this).index();
@@ -541,7 +643,7 @@
     
         //向右
         $('.page-detail').on('swipeRight', function (){
-            campaignTools.pushGaEvent('campaign-mars', 'slidepage');
+            campaignTools.pushGaEvent('gift-list', 'slidepage');
 
             if (isAnimating) return;
             var now = $(this).index();
@@ -558,7 +660,7 @@
     
         //关闭详情
         $(document).on('click', '.btn-back', function(){
-            campaignTools.pushGaEvent('campaign-mars', 'clickexit');
+            campaignTools.pushGaEvent('gift-list', 'back');
 
             var parent = $(this).parents('.page');
             parent.addClass('page-moveToBottom');
@@ -569,28 +671,32 @@
             }, 600);
             $('.page-detail .content').scrollTop(0);
         });
-    
-        //排行榜 手风琴
-        $('.list3 li').live('click', function(ev){
-            var index = $(this).parent().index();
-            campaignTools.pushGaEvent('campaign-mars', 'openrank', 'rank' + index);
 
-            var child = $(this).parent().find('.sublist');
-            if(child.css('display') == 'none'){
-                $(this).find('.shape').animate({'rotate': '90deg'},500);
-                child.show();
-                child.addClass('scaleUpCenter');
-                setTimeout(function() {
-                    child.removeClass('scaleUpCenter');
-                }, 600);
-            }else{
-                $(this).find('.shape').animate({'rotate': '0'},500);
-                child.hide();
-            }
+        $(document).on('click', '.detailLink', function() {
+            var cardIndex = $(this).attr('data-cardindex');
+            var tabIndex = $(this).parent().parent().parent().parent().parent().attr('data-index');
+            campaignTools.pushGaEvent('gift-list', 'click', 'tab' + tabIndex, 'card' + cardIndex);
 
-            $.refreshScroller();
+            window.location.href = $(this).attr('data-link');
         });
     
+        //点击购买按钮，出现淘宝口令
+        $(document).on('click', '.buy', function() {
+            campaignTools.pushGaEvent('gift-list', 'buy');
+
+            var password = $(this).attr('data-password');
+            $('.buy-overlay .password')[0].innerHTML = password;
+            $('.buy-overlay').addClass('pageFadeIn');
+            $('.buy-overlay').show();
+            setTimeout(function() {
+                $('.buy-overlay').removeClass('pageFadeIn');
+            }, 600);
+        });
+        //淘宝口令关闭按钮
+        $('.close-icon-link').live('tap', function() {
+            $('.buy-overlay').hide(); 
+        });
+
         $('.share').live('tap', function(){
             $('.share-menu').addClass('page-moveFromBottom');
             $('.share-overlay').addClass('pageFadeIn');
@@ -602,7 +708,7 @@
             }, 600);
         });
 
-        $('.btn-share').live('tap', function(){
+        /*$('.btn-share').live('tap', function(){
             $('.share-menu').addClass('page-moveFromBottom');
             $('.share-overlay').addClass('pageFadeIn');
             $('.share-menu').show();
@@ -611,6 +717,11 @@
                 $('.share-menu').removeClass('page-moveFromBottom');
                 $('.share-overlay').removeClass('pageFadeIn');
             }, 600);
+        });*/
+
+        $('.bottomView #install').live('tap', function(){
+            campaignTools.pushGaEvent('gift-list', 'download');
+            installBtn();
         });
 
         $('.share-menu').live('tap', function() {
@@ -622,27 +733,27 @@
         var shareGA = ['.share', '.btn-share', '.share-wechat-friend', '.share-wechat-timeline', '.share-weibo'];
         $(shareGA.join(',')).live('click', function() {
             if ($(this).is('.share-wechat-friend')) {
-                campaignTools.pushGaEvent('campaign-mars', 'share', 'wechatfriends'); 
+                campaignTools.pushGaEvent('gift-list', 'share', 'friend'); 
             } else if ($(this).is('.share-wechat-timeline')) {
-                campaignTools.pushGaEvent('campaign-mars', 'share', 'wechatmoments');
+                campaignTools.pushGaEvent('gift-list', 'share', 'moment');
             } else if ($(this).is('.share-weibo')){
-                campaignTools.pushGaEvent('campaign-mars', 'share', 'weibo');
+                campaignTools.pushGaEvent('gift-list', 'share', 'weibo');
             } else if ($(this).is('.share')) {
-                campaignTools.pushGaEvent('campaign-mars', 'openshare');
+                campaignTools.pushGaEvent('gift-list', 'openshare');
             } else if ($(this).is('.btn-share')) {
-                campaignTools.pushGaEvent('campaign-mars', 'openshare');
+                campaignTools.pushGaEvent('gift-list', 'openshare');
             }
         });
 
         //合作伙伴GA
-        $('.partners_logs a').live('click', function() {
-           campaignTools.pushGaEvent('campaign-mars', 'clickpartner');
-        });
+        /*$('.partners_logs a').live('click', function() {
+           campaignTools.pushGaEvent('gift-list', 'clickpartner');
+        });*/
 
         //下载按钮GA
-        $('.download_button').live('click', function() {
-           campaignTools.pushGaEvent('campaign-mars', 'download');
-        });
+        /*$('.download_button').live('click', function() {
+           campaignTools.pushGaEvent('gift-list', 'download');
+        });*/
 
         $.refreshScroller();
     
