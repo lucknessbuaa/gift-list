@@ -1,4 +1,4 @@
-var urlConstant = '/img/';
+var urlConstant = '/campaign/gift-list/img/';
 
 (function($){
     const towards = {

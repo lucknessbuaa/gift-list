@@ -28,51 +28,69 @@ table { border-collapse: collapse; border-spacing: 0;}
 .hide { display: none;}
 
 html, body { overflow: hidden;}
-.body { position: absolute; color: #fff; font-family: 'Lantinghei SC', 'Microsoft Yahei', 'Hiragino Sans GB', 'Helvetica Neue', Hel    vetica, Arial, sans-serif;}
+.body { position: absolute; color: #fff; font-family: 'Lantinghei SC', 'Microsoft Yahei', 'Hiragino Sans GB', 'Helvetica Neue', Helvetica, Arial, sans-serif;}
 
 /* 幻灯片 */
 .wrapul { position: absolute; width: 100%; height: 100%;}
 .wrapul li { position: absolute; width: 100%; height: 100%;}
 .wrapul li img { width: 100%; height: 100%;}
+.anli {
+    background: center center no-repeat;
+    background-size: cover;
+}
 .anli1 { z-index: 300; }
 .anli1 { z-index: 200; }
 .anli1 { z-index: 100; }
 
 /* 中间内容 */
-.wrapdiv { position: absolute; top: 50%; left: 50%; width: 576px; height: 846px;  margin: -423px 0 0 -288px; border: 15px solid #fff; z-index: 500; overflow: hidden;}
+.wrapdiv { 
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    width: 576px; 
+    height: 846px; 
+    border: 15px solid #fff; 
+    z-index: 500; 
+    overflow: hidden;
+}
 .wrapdiv2 { border: 2px solid #fff; margin: 10px; padding: 16px 34px 0 34px;}
 .p1{ font-size: 18px; height: 38px;}
 .p1 span{ height: 38px; line-height: 38px; margin-left: 10px;}
 .p2{  height: 72px; line-height: 72px; margin-top: 15px; text-align: center; font-size: 75px; font-weight: bold;}
 .p3{ border-top:3px solid #fff; border-bottom: 3px solid #fff; height: 0; margin-top: 12px;}
-.p4{ margin-top: 12px; font-size: 26.11px;}
-.p5{ margin-top: 45px; font-size: 23.51px; text-align: right;}
-.p6{ margin-top: 45px; font-size: 16.93px; text-align: right;}
+.p4{ margin-top: 12px; font-size: 22px;}
+.p5{ margin-top: 25px; font-size: 22px; text-align: right; line-height: 1.5}
+/*.p6{ margin-top: 45px; font-size: 16.93px; text-align: right;}
 .p7{ margin-top: 38px;}
 .p7, .p8{ font-size: 16.93px; text-align: right;}
 .p8{ margin-top: 5px;}
 .p9{ margin-top: 32px; font-size: 24.93px; text-align: right;}
 .p10{ margin-top: 30px; font-size: 20.21px; text-align: right;}
 .p11{ margin-top: 32px; font-size: 28.21px; text-align: right;}
-.p12{ margin-top: 8px; font-size: 28.21px; text-align: right;}
+.p12{ margin-top: 8px; font-size: 28.21px; text-align: right;}*/
 .pimg{ margin-bottom: 15px;}
 .pimg img {border: 2px solid #fff; padding: 0.4rem;}
 .pimg span {display: block; margin-top: 0.4rem;font-size: 1rem; letter-spacing: 0.16rem;}
 
 /* 响应 */
-@media only screen and (max-height: 850px){
-    .wrapdiv { width: 382px; height: 560px; margin: -280px 0 0 -191px; border: 10px solid #fff;}
+@media only screen and (min-width: 1024px){
+    .wrapdiv { 
+        transform: translate3d(-50%, -50%, 0);
+        -webkit-transform: translate3d(-50%, -50%, 0);
+        width: 382px; 
+        height: 560px; 
+        /*margin: -280px 0 0 -191px;*/ 
+        border: 10px solid #fff;
+    }
     .wrapdiv2 { height: 500px; margin: 10px; padding: 8px 17px 28px 17px;}
     .p1{ font-size: 18px; height: 38px;}
     .p1 span{ height: 38px; line-height: 38px; margin-left: 10px;}
     .p2{ height: 48px; line-height: 48px;  margin-top: 10px; font-size: 50px; font-weight: bold; text-align: center;}
     .p3{ height: 0; margin-top: 10px; border-top:2px solid #fff; border-bottom: 2px solid #fff;}
-    .p4{ margin-top: 12px; font-size: 17px;}
-    .p5{ margin-top: 35px; font-size: 16px;}
+    .p4{ margin-top: 12px; font-size: 17px; margin-bottom: 50px;}
+    .p5{ margin-top: 20px; font-size: 16px;}
     .p6, .p7, .p9 { margin-top: 20px; font-size: 14px;}
     .p11, .p12 { font-size: 20px; font-weight: 400;}
     .pimg{ position: absolute; left: 22px; bottom: 6px;}
     .p12{ margin-bottom: 5px;}
 }
-
-

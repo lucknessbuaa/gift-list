@@ -16,7 +16,7 @@
 
         slideTimer = setInterval(slide, 3000);
 
-        var resizeTimeout = null;
+        /*var resizeTimeout = null;
         $(window).on('resize',function() { 
 
            var onResize = function () {
@@ -35,6 +35,6 @@
 
             winWidth = winNewWidth;
             winHeight = winNewHeight;
-        });
+        });*/
     });
 }(jQuery));

@@ -58,7 +58,7 @@ body { font-family: 'Lantinghei SC', 'Microsoft Yahei', 'Hiragino Sans GB', 'Hel
 
 /* 顶部导航 */
 .bar-nav { /*position: fixed;*/ height: 2.3rem; padding: 0.5rem 0.75rem; border-bottom: 1px solid #dcdcdc; background-color: #fff;}
-.bar-nav .btn-back { float: left; width: 1.3rem; height: 1.3rem; background: url("/img/arrow.png") top center no-repeat; -webkit-background-size: cover; background-size: cover;}
+.bar-nav .btn-back { float: left; width: 1.3rem; height: 1.3rem; background: url("/campaign/gift-list/img/arrow.png") top center no-repeat; -webkit-background-size: cover; background-size: cover;}
 .bar-nav p { float: left; height: 1.3rem; line-height: 1.3rem; margin: 0; padding: 0; color: #000; font-size: 0.65rem; font-weight: 600;}
 .bar-nav h1 { float: left; height: 1.3rem; line-height: 1.3rem; margin: 0 0 0 0.5rem; padding: 0; text-align: left; color: #999; font-size: 0.65rem; overflow: hidden;}
 .bar-nav .share { float: right; width: 2.7rem; height: 1.3rem; line-height: 1.3rem; display: block; -webkit-border-radius: 0.2rem; border-radius: 0.2rem; text-align: center; color: #fff; font-size: 0.65rem; background-color: #24aa42;}
