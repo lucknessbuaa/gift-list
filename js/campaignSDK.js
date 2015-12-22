@@ -1,8 +1,8 @@
 /*
 * @Author: @schumilin
 * @Date:   2015-01-28 14:20:50
-* @Last Modified by:   midare
-* @Last Modified time: 2015-09-23 02:02:41
+* @Last Modified by:   Jiyun
+* @Last Modified time: 2015-12-18 14:20:41
 */
 
 /*global $, jQuery, ga, _gaq, wx */
@@ -831,7 +831,7 @@
             }
         }).done(function (r) {
             // 开始配置微信JS-SDK
-            var r = r.config;
+
             wx.config({
                 debug: false,
                 appId: r.appId,
