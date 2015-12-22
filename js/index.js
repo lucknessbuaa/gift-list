@@ -1,7 +1,9 @@
+/*global $, Zepto, jQuery, ga, _, AV, Parse, FastClick, wx, campaignTools, Swiper, performance, page, const */
+
 var urlConstant = '/campaign/gift-list/img/';
 
 (function($){
-    const towards = {
+    var towards = {
         left: 1,
         right: 2
     };
@@ -24,21 +26,18 @@ var urlConstant = '/campaign/gift-list/img/';
             if (campaignTools.UA.inWechat) {
                 fakeClick('http://a.app.qq.com/o/simple.jsp?pkgname=com.wandoujia');
             } else {
-                //weibo
+                // weibo
                 if (!!(navigator.userAgent.toLowerCase()).match(/(weibo)/)) {
-                    // 这里需要自己写一个弹窗效果，提示用户点击右上角用浏览器打开当前页面
-                    //  $('.overlay').show().click(function () {
-                    //      $(this).hide();
-                    //  });
+                    $('body').append('<div class="overlay install-in-weibo"><div class="weibo-popup"><p>请点击右上角的 ... ，选择在浏览器中打开，<br/>然后重新点击「安装」按钮</p></div></div>');
                 } else {
                     fakeClick('https://itunes.apple.com/cn/app/wan-dou-jia-yi-lan-ni-gan/id1003672393?l=en&mt=8&ct=www-yilan-preview');
                 }
             }
-            // 如果是 android
+        // 如果是 android
         } else if (campaignTools.UA.inAndroid) {
             // 豌豆荚客户端里直接安装
             if (campaignTools.UA.inWdj) {
-                campaignPlugin.installApp({
+                campaignTools.installApp({
                     'packageName': 'com.wandoujia',
                     'downloadUrl': 'http://apps.wandoujia.com/redirect?signature=03ef108&url=http%3A%2F%2Fapk.wandoujia.com%2Ff%2F85%2F09743cbc413172774006ad2a9816885f.apk&pn=com.wandoujia&md5=09743cbc413172774006ad2a9816885f&apkid=16677219&vc=55&size=16365452&pos=t%2Fcampaign',
                     'appName': '豌豆荚一览',
@@ -63,22 +62,12 @@ var urlConstant = '/campaign/gift-list/img/';
         }
     }
 
-    function getRequest() {
-        var url = location.search;
-        var theRequest = new Object();
-        if (url.indexOf("?") != -1) {
-            var str = url.substr(1);
-            strs = str.split("&");
-            for(var i = 0; i < strs.length; i ++) {
-                theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
-            }
-        }
-        return theRequest;
-    }
-
+    var isAnimating;
+    var outClass;
+    var inClass;
     function pageMove(tw, now, last) {
         var lastPage = '.page' + last;
-        var nowPage = ".page" + now;
+        var nowPage = '.page' + now;
         switch(tw) {
             case towards.left:
                 outClass = 'page-moveToLeft';
@@ -121,8 +110,8 @@ var urlConstant = '/campaign/gift-list/img/';
                 '<div id="appIntro">一个页面浏览&nbsp;500+&nbsp;应用的最新内容</div>' +
             '</div>' +
             '<button id="install">安装</button>' +
-        '</div>'
-    }
+        '</div>';
+    };
 
     /**
      * 封面组件
@@ -186,7 +175,7 @@ var urlConstant = '/campaign/gift-list/img/';
             '</div>' + 
             '<button class="buy" data-password="' + review.password + '">购买</button>';
         return result;
-    }
+    };
 
     var createSummary = function(summary) {
         var result = '';
@@ -194,7 +183,7 @@ var urlConstant = '/campaign/gift-list/img/';
             '<span class="summaryNumber">' + summary.number1 + '</span>' +
             summary.text2 + '<span class="summaryNumber">' + summary.number2 + '</span>' + summary.text3;
         return result;
-    }
+    };
 
     var createCards = function(cards) {
         var singleCard = [];
@@ -314,7 +303,7 @@ var urlConstant = '/campaign/gift-list/img/';
             '</div>'
         );
         return result.join('');
-    }
+    };
 
     /*
      * 长文章段落组件
@@ -325,7 +314,7 @@ var urlConstant = '/campaign/gift-list/img/';
             result.push(createSingleParagraph(para));
         });
         return result.join('');
-    }
+    };
 
     var createSingleParagraph = function(para) {
         var content = para.content;
@@ -353,7 +342,7 @@ var urlConstant = '/campaign/gift-list/img/';
         );
 
         return result.join('');
-    }
+    };
 
     /**
      * 排行榜组件
@@ -378,7 +367,7 @@ var urlConstant = '/campaign/gift-list/img/';
             ranking.push(
                 '<div class="div">' +
                 '<li class="li" style="background-image: url(' + rank.background + ')">' +
-                '<span class="num">' + ++index  + '</span>' +
+                '<span class="num">' + (++index)  + '</span>' +
                 '<h3 class="name">' + rank.keyword +
                 '<div class="shape"></div>' +
                 '</h3>' +
@@ -416,12 +405,12 @@ var urlConstant = '/campaign/gift-list/img/';
             '</div>'
     
         );
-        $('.qrcode-button').live('click', function() {
+        $(document).on('click', '.qrcode-button', function() {
             $('.overlay').remove();
             $('.qrcode').remove();
         });
         return result;
-    }
+    };
     
     /* 微信分享提示组件 */
     var createWechatShareTip = function(tipImg) {
@@ -434,7 +423,7 @@ var urlConstant = '/campaign/gift-list/img/';
             $('.wechat-share-tip').remove(); 
         });
         return result;
-    }
+    };
 
     /* PC页面背景 */
     var createPCBanners = function(banners) { 
@@ -448,7 +437,7 @@ var urlConstant = '/campaign/gift-list/img/';
             );
         });
         return result.join('');
-    }
+    };
 
     /* PC段落 */
     var createPCParagraphs = function(content) {
@@ -462,26 +451,25 @@ var urlConstant = '/campaign/gift-list/img/';
                 '<p class="clearfix p3"></p>' +
                 '<p class="clearfix p4">' + content.enTitle + '</p>' +
                 '<p class="clearfix p5">' + content.part1 + '</p>' +
-                '<p class="clearfix p6">' + content.part2 + '</p>' +
-                '<p class="clearfix p7">' + content.part3 + '</p>' +
-                '<p class="clearfix p8">' + content.part4 + '</p>' +
-                '<p class="clearfix p9">' + content.part5 + '</p>' +
-                '<p class="clearfix p10">' + content.part6 + '</p>' +
-                '<p class="clearfix p11">' + content.part7 + '</p>' +
-                '<p class="clearfix p12">' + content.part8 + '</p>' +
+                '<p class="clearfix p5">' + content.part2 + '</p>' +
+                '<p class="clearfix p5">' + content.part3 + '</p>' +
+                '<p class="clearfix p5">' + content.part4 + '</p>' +
+                '<p class="clearfix p5">' + content.part5 + '</p>' +
+                '<p class="clearfix p5">' + content.part6 + '</p>' +
+                '<p class="clearfix p5">' + content.part7 + '</p>' +
                 '<p class="pimg">' +
-                    '<img src="http://www.wandoujia.com/qr?s=5&c=' +  encodeURIComponent(location.href) + '" height="150" width="150" />' +
+                    '<img src="http://www.wandoujia.com/qr?s=5&c=' +  encodeURIComponent('http://www.wandoujia.com/campaign/gift-list/?utm_source=minisiteqrcode&utm_medium=internal&utm_campaign=gift-list') + '" height="150" width="150" />' +
                     '<span>用手机扫二维码浏览</span>' +
                 '</p>'
         );
         return result;
-    }
+    };
     
     var initPage = function(id){
-        $.get('http://huoxing-test.limijiaoyin.com/api/data', {
+        $.get('http://www.wandoujia.com/needle/source/getJSON/733', {
             id: id 
         }, function(data) {
-            var config = data.data; 
+            var config = data;
             var cover = config.cover;
             var article = config.article;
             var rank = config.rank;
@@ -515,7 +503,7 @@ var urlConstant = '/campaign/gift-list/img/';
             //$('.partners').append(createPartners(partners.content));
 
             //分享
-            var wbConfig = share.weibo;         
+            var wbConfig = share.weibo;
             var wechatTimelineConfig = share.wechatTimelineConfig;
             var wechatFriendConfig = share.wechatFriendConfig;
 
@@ -572,7 +560,9 @@ var urlConstant = '/campaign/gift-list/img/';
                     desc: wechatTimelineConfig.desc, 
                     link: wechatTimelineConfig.link,
                     imgUrl: wechatTimelineConfig.imgUrl,
-                    successCallback: function() {}
+                    successCallback: function() {
+
+                    }
                 };
     
                 var shareFriendObject = {
@@ -580,7 +570,9 @@ var urlConstant = '/campaign/gift-list/img/';
                     desc: wechatFriendConfig.desc,
                     link: wechatFriendConfig.link,
                     imgUrl: wechatFriendConfig.imgUrl,
-                    successCallback: function() {}
+                    successCallback: function() {
+
+                    }
                 };
     
                 campaignTools.wechatWebviewShareSetup(shareTimelineObject, shareFriendObject);
@@ -588,18 +580,20 @@ var urlConstant = '/campaign/gift-list/img/';
 
             $.init();
         });
-    }
+    };
 
     $(function() {
-        var param = getRequest();
-        // 数据获取配置
-        $.get('http://huoxing-test.limijiaoyin.com/api/config', function(data){
-            if (param.id) {
-                data[param.id] ? initPage(data[param.id]) : null;
-            } else {
-                initPage(data['huoxing']);
-            }
-        });
+        // var param = getRequest();
+        // // 数据获取配置
+        // $.get('http://huoxing-test.limijiaoyin.com/api/config', function(data){
+        //     if (param.id) {
+        //         data[param.id] ? initPage(data[param.id]) : null;
+        //     } else {
+        //         initPage(data['huoxing']);
+        //     }
+        // });
+
+        initPage();
 
         //查看详情
         $(document).on('click', '.link', function (e){
@@ -611,10 +605,10 @@ var urlConstant = '/campaign/gift-list/img/';
             },600);
             $('.page-detail .content').scrollTop(0);
     
-            $(".swiper-container").swiper({
+            $('.swiper-container').swiper({
                 slidesPerView: 'auto',
                 spaceBetween: 15,
-                onSlideChangeEnd: function() {campaignTools.pushGaEvent('gift-list', 'slidecard');}
+                onSlideChangeEnd: function() {campaignTools.pushGaEvent('gift-list', 'slidecard', '');}
             });
 
             campaignTools.pushGaEvent('gift-list', 'click', 'tab' + index);
@@ -627,15 +621,15 @@ var urlConstant = '/campaign/gift-list/img/';
         $('.page-detail').on('swipeLeft', function(){
             campaignTools.pushGaEvent('gift-list', 'slidepage');
 
-            if (isAnimating) return;
+            if (isAnimating) {
+                return;
+            }
             var now = $(this).index();
             var last = now;
     
             if (last !== 7) {
                 now = last + 1;
                 pageMove(towards.left, now, last);
-            } else {
-                $.alert('已经到最后一页了');
             }
 
             $.refreshScroller();
@@ -645,14 +639,14 @@ var urlConstant = '/campaign/gift-list/img/';
         $('.page-detail').on('swipeRight', function (){
             campaignTools.pushGaEvent('gift-list', 'slidepage');
 
-            if (isAnimating) return;
+            if (isAnimating) {
+                return;
+            }
             var now = $(this).index();
             var last = now;
             if(last !== 1){
                 now = last - 1;
                 pageMove(towards.right, now, last);
-            } else {
-                $.alert('已经到第一页了');
             }
 
             $.refreshScroller();
@@ -674,8 +668,8 @@ var urlConstant = '/campaign/gift-list/img/';
 
         $(document).on('click', '.detailLink', function() {
             var cardIndex = $(this).attr('data-cardindex');
-            var tabIndex = $(this).parent().parent().parent().parent().parent().attr('data-index');
-            campaignTools.pushGaEvent('gift-list', 'click', 'tab' + tabIndex, 'card' + cardIndex);
+            var tabIndex = $(this).parents('.page-abstract').eq(0).attr('data-index');
+            campaignTools.pushGaEvent('gift-list', 'click', 'tab-' + tabIndex + '-card-' + cardIndex);
 
             window.location.href = $(this).attr('data-link');
         });
@@ -693,21 +687,18 @@ var urlConstant = '/campaign/gift-list/img/';
             }, 600);
         });
         //淘宝口令关闭按钮
-        $('.close-icon-link').live('tap', function() {
+        $(document).on('click', '.close-icon-link', function() {
             $('.buy-overlay').hide(); 
         });
 
-        $('.share').live('tap', function(){
-            $('.share-menu').addClass('page-moveFromBottom');
-            $('.share-overlay').addClass('pageFadeIn');
+        $(document).on('click', '.share', function(){
             $('.share-menu').show();
-            $('.share-overlay').show();
-            setTimeout(function(){
-                $('.share-menu').removeClass('page-moveFromBottom');
-                $('.share-overlay').removeClass('pageFadeIn');
-            }, 600);
         });
 
+        $(document).on('click', '.share-overlay', function(){
+            $('.share-menu').hide();
+        });
+        
         /*$('.btn-share').live('tap', function(){
             $('.share-menu').addClass('page-moveFromBottom');
             $('.share-overlay').addClass('pageFadeIn');
@@ -718,31 +709,37 @@ var urlConstant = '/campaign/gift-list/img/';
                 $('.share-overlay').removeClass('pageFadeIn');
             }, 600);
         });*/
-
-        $('.bottomView #install').live('tap', function(){
+        
+        $(document).on('click', '#install', function(){
             campaignTools.pushGaEvent('gift-list', 'download');
             installBtn();
         });
 
-        $('.share-menu').live('tap', function() {
-            $('.share-menu').hide();
-            $('.share-overlay').hide();
-        });
+        // $(document).on('click', 'share-menu', function() {
+        //     $('.share-menu').hide();
+        // });
 
         // 分享GA
         var shareGA = ['.share', '.btn-share', '.share-wechat-friend', '.share-wechat-timeline', '.share-weibo'];
-        $(shareGA.join(',')).live('click', function() {
-            if ($(this).is('.share-wechat-friend')) {
+
+         $(document).on('click', shareGA.join(','), function() {
+            var $t = $(this);
+            if ($t.is('.share-wechat-friend')) {
                 campaignTools.pushGaEvent('gift-list', 'share', 'friend'); 
-            } else if ($(this).is('.share-wechat-timeline')) {
+            } else if ($t.is('.share-wechat-timeline')) {
                 campaignTools.pushGaEvent('gift-list', 'share', 'moment');
-            } else if ($(this).is('.share-weibo')){
+            } else if ($t.is('.share-weibo')){
                 campaignTools.pushGaEvent('gift-list', 'share', 'weibo');
-            } else if ($(this).is('.share')) {
+            } else if ($t.is('.share')) {
                 campaignTools.pushGaEvent('gift-list', 'openshare');
-            } else if ($(this).is('.btn-share')) {
+            } else if ($t.is('.btn-share')) {
                 campaignTools.pushGaEvent('gift-list', 'openshare');
             }
+        });
+
+        // 移除微博提示层
+        $(document).on('click', '.overlay.install-in-weibo', function () {
+            $(this).remove();
         });
 
         //合作伙伴GA

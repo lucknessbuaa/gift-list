@@ -3,9 +3,9 @@
 ul, li { list-style: none;}
 
 body { font-family: 'Lantinghei SC', 'Microsoft Yahei', 'Hiragino Sans GB', 'Helvetica Neue', Helvetica, Arial, sans-serif; text-size-adjust: none;}
-.btn-share { position: absolute; top: 2%; right: 2%; width: 1.5rem; height: 1.5rem; background: url("../images/share.png") 0 0 no-repeat; -webkit-background-size: contain; background-size: contain; z-index: 20;}
+.btn-share { position: absolute; top: 2%; right: 2%; width: 1.5rem; height: 1.5rem; background: url("/campaign/gift-list/images/share.png") 0 0 no-repeat; -webkit-background-size: contain; background-size: contain; z-index: 20;}
 
-.page {background-color: #fff;}
+.page {background-color: #fff;z-index: 2;}
 
 .row { position: relative; margin: 0; overflow: hidden; color: #fff; text-align: center}
 .row1 { height: 45%; padding: 3px;}
@@ -24,7 +24,7 @@ body { font-family: 'Lantinghei SC', 'Microsoft Yahei', 'Hiragino Sans GB', 'Hel
 .bottomView {position: absolute; bottom: 0px; height: 10%; width: 100%; border: 1px solid #dcdcdc; background-color: #fff;}
 .page-detail .bottomView {height: 3rem;}
 .bottomView #appInfo {display: inline-block; margin-left: 60px; margin-top: 6px;}
-.bottomView #appInfo #appTitle {font-size: 0.8rem; color: #000; font-weight: 600;}
+.bottomView #appInfo #appTitle {font-size: 12px; color: #333; font-weight: 600;}
 .bottomView #appInfo #appIntro {font-size: 0.6rem; color: #24aa42}
 .bottomView #install {position: absolute; top: 50%; right: 0px; margin-right: 10px; display: inline-block; vertical-align: middle; border-radius: 3px; padding: 8px 12px; background: #24AA42; text-decoration: none; color: #fff; text-align: center; border: 0px; font-size: 0.6rem; outline: none; margin-top: -18px;}
 .bottomView #appIcon {position: absolute; width: 40px; height: 40px; margin-left: 10px; top: 50%; margin-top: -20px;}
@@ -47,7 +47,7 @@ body { font-family: 'Lantinghei SC', 'Microsoft Yahei', 'Hiragino Sans GB', 'Hel
 .index1 p { position: relative; font-size: 0.6rem; z-index: 4; margin: 0.4rem 0;}
 
 /* 详情 */
-.page-detail { z-index: 10000; background-color: #fff; overflow: hidden;}
+.page-detail { z-index: 10; background-color: #fff; overflow: hidden;}
 .page-detail .content {margin-bottom: 3rem; overflow-x: hidden; -webkit-transform-style: preserve-3d; -webkit-backface-visibility: hidden;}
 .page-detail .content .detail { position: relative; background-color: #fff;}
 .page-detail .content .detail .head .reviewCover{width: 5rem; height: 5rem;}
@@ -131,7 +131,7 @@ body { font-family: 'Lantinghei SC', 'Microsoft Yahei', 'Hiragino Sans GB', 'Hel
 .sublist .con span { color: #24aa42; padding: 0 0.5rem;}
 
 /* 推荐应用 */
-.slide { margin-top: 1rem; padding: 1.25rem; width: 100%; height: 15.75rem; background-image: url('../images/slide-bg.jpg'); -webkit-background-size: cover; background-size: cover; background-position: top center; overflow: hidden;}
+.slide { margin-top: 1rem; padding: 1.25rem; width: 100%; height: 15.75rem; background-image: url('/campaign/gift-list/images/slide-bg.jpg'); -webkit-background-size: cover; background-size: cover; background-position: top center; overflow: hidden;}
 .slide h2 { width: 70%; margin: 0 auto 1rem; text-align: center; color: #fff; font-size: 0.7rem; font-weight: 600;}
 .swiper-container .swiper-slide { width: 33%; height: 11rem; display: -webkit-box; display: -ms-flexbox; display: -webkit-flex; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; -webkit-justify-content: center; justify-content: center; -webkit-box-align: center; -ms-flex-align: center; overflow: hidden;}
 .swiper-slide .con { width: 100%; height: 9rem; overflow: hidden; background-color: #1468d3;}
@@ -141,13 +141,15 @@ body { font-family: 'Lantinghei SC', 'Microsoft Yahei', 'Hiragino Sans GB', 'Hel
 .swiper-slide .plus { width: 2.5rem; height: 0.75rem; line-height: 0.75rem; margin: 0.85rem auto 0; -webkit-border-radius: 0.25rem; border-radius: 0.25rem; color: #fff; text-align: center; background-color: #24aa42;}
 
 /* 分享蒙版 */
-.share-overlay {top: 0; bottom: 0; left: 0; right: 0;z-index: 10000; background: rgba(0, 0, 0, 0.4); position: fixed;display: none;}
-.share-menu {display: none; position: fixed; top: 0; right:0; bottom: 0; left: 0; z-index: 9999999;}
-.share-menu .share-buttons {padding-bottom: 0.8rem;}
+.share-overlay {top: 0; bottom: 0; left: 0; right: 0;z-index: 1; background: rgba(0, 0, 0, 0.4); position: fixed;}
+.share-menu {display: none; position: fixed; top: 0; right:0; bottom: 0; left: 0; z-index: 99;}
+
+.share-menu .share-buttons {position: absolute; bottom: 0; width: 100%; background: #fff;padding-bottom: 0.8rem; z-index: 2;}
+
 .share-menu .share-buttons .share-wechat-friend {text-align: center;}
 .share-menu .share-buttons .share-wechat-timeline {text-align: center;}
 .share-menu .share-buttons .share-weibo {text-align: center;}
-.share-menu .share-buttons {position: absolute; bottom: 0; width: 100%; background: #fff;}
+
 .share-menu .share-buttons .share-title{text-align: center; font-size: 0.65rem; color: #333; padding: 0.8rem 0;}
 .share-menu .share-buttons .trim {width: 33.33%;}
 .share-buttons img {width: 1.3rem; display: block; margin: 0 auto;}
@@ -155,14 +157,40 @@ body { font-family: 'Lantinghei SC', 'Microsoft Yahei', 'Hiragino Sans GB', 'Hel
 
 /*购买口令弹窗*/
 .buy-overlay {top: 0; bottom: 0; left: 0; right: 0;z-index: 10000; background: rgba(0, 0, 0, 0.4); position: fixed;display: none;}
-.buy-overlay .buy-wrap {position: absolute; top: 50%; left: 5%; margin-top: -5rem; background-color: #fff; width: 90%;}
+.buy-overlay .buy-wrap {
+  transform: translate3d(-50%, -50%, 0);
+  -webkit-transform: translate3d(-50%, -50%, 0);
+  position: absolute; top: 50%; left: 50%;  background-color: #fff; width: 90%;}
 .buy-overlay .close-wrap {text-align: right;}
 .buy-overlay .close-wrap .close-icon {width: 8px; height: 8px; margin: 0.5rem 0.5rem 1rem 4rem;}
 .buy-overlay .close-wrap .close-icon-link {position: absolute; top: 0px; right: 0px; width: 8px; height: 8px; padding: 0.5rem 0.5rem 1rem 4rem;}
-.buy-overlay .password {display: block; font-size: 0.6rem; color: #000; text-align: center; font-weight: 600; padding: 1rem 0.5rem 1.5rem;}
+.buy-overlay .password {display: block; font-size: 12px; color: #000; text-align: center; font-weight: 600; padding: 0 0.5rem 1.5rem;}
 
 
 .overlay {position: fixed; background: rgba(0, 0, 0, 0.6); top: 0; right: 0; left: 0; bottom: 0; z-index: 10000;}
+
+.weibo-popup {
+  -moz-transform: translate3d(-50%, 0, 0);
+  -webkit-transform: translate3d(-50%, 0, 0);
+  transform: translate3d(-50%, 0, 0);
+
+  -moz-border-radius: 0 0 5px 5px;
+  -webkit-border-radius: 0 0 5px 5px;
+  border-radius: 0 0 5px 5px;
+
+  min-width: 290px;
+  max-width: 300px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 10001;
+  margin: 0 auto;
+  padding: 10px;
+  background: #fff;
+  text-align: center;
+  font-size: 12px;
+}
+
 .qrcode {position: fixed; top: 50%; left: 50%; height: 15rem; width: 14rem; margin-top: -8rem; margin-left: -7rem; background:#fff;padding: 0.5rem; text-align: left; z-index: 10001;}
 .qrcode .qrcode-title {padding-bottom: 0.25rem;  font-size: 0.8rem; border-bottom: 1px solid #eee;}
 .qrcode .qrcode-content {height: 10.4rem; padding: 0.5rem; overflow: hidden;}

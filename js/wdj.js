@@ -37,4 +37,4 @@
             winHeight = winNewHeight;
         });*/
     });
-}(jQuery));
+}(Zepto));
