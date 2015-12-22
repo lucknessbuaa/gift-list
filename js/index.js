@@ -191,8 +191,8 @@ var urlConstant = '/campaign/gift-list/img/';
     var createSummary = function(summary) {
         var result = '';
         result = summary.text1 + 
-            '<span class="summaryNumber">' + summary.number + '</span>' +
-            summary.text2;
+            '<span class="summaryNumber">' + summary.number1 + '</span>' +
+            summary.text2 + '<span class="summaryNumber">' + summary.number2 + '</span>' + summary.text3;
         return result;
     }
 
